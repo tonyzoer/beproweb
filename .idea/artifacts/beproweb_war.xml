@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="beproweb:war">
+    <output-path>$PROJECT_DIR$/target</output-path>
+    <root id="archive" name="beproweb.war">
+      <element id="artifact" artifact-name="beproweb:war exploded" />
+    </root>
+  </artifact>
+</component>
