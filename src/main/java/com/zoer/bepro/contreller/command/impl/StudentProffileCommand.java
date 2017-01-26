@@ -40,6 +40,6 @@ public class StudentProffileCommand implements Command {
         req.getSessionWrapper().setSpecifications(specificationsList);
         List<JobOffers> jobOfferss=DefaultJobOffersService.getInstance().getStudentsJobOffers(user.getProfile().getStudentProfile().get());
         req.setAttribute("studentsOffers", jobOfferss);
-        return ViewJsp.StudentSpace.STUDENT_JSP;
+            return ViewJsp.StudentSpace.STUDENT_JSP;
     }
 }

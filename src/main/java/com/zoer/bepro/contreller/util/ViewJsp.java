@@ -2,8 +2,7 @@ package com.zoer.bepro.contreller.util;
 
 public interface ViewJsp {
     interface General {
-//        String LOGIN_PAGE = "/";
-//        String LOGOFF_PAGE = "jsp/logoff.jsp";
+        String USER="WEB-INF/jsp/user.jsp";
         String REGISTER_JSP = "WEB-INF/jsp/reg.jsp";
         String ERROR_404 = "404.jsp";
         String MAIN="/";
@@ -15,7 +14,6 @@ public interface ViewJsp {
     }
 
     interface UserSpace {
-        String USER_JSP = "jsp/.jsp";
         String REG_THANK="WEB-INF/jsp/regthanks.jsp";
         String CHOOSE_PROFILE_JSP="WEB-INF/jsp/chooseprofiletype.jsp";
     }

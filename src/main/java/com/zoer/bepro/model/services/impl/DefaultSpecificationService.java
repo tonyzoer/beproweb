@@ -5,8 +5,11 @@ import com.zoer.bepro.model.dao.PersistException;
 import com.zoer.bepro.model.dao.mysqldao.MySqlDaoFactory;
 import com.zoer.bepro.model.dao.mysqldao.MySqlSpecificationsDao;
 import com.zoer.bepro.model.dao.mysqldao.MySqlStudentProfileDao;
+import com.zoer.bepro.model.domain.Courses;
 import com.zoer.bepro.model.domain.Specifications;
 import com.zoer.bepro.model.services.SpecificationsService;
+import com.zoer.bepro.utils.MyCourseraApi;
+import org.apache.log4j.Logger;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,7 +21,7 @@ public class DefaultSpecificationService extends GenericEntityService<Specificat
     public static DefaultSpecificationService getInstance() {
         return instance;
     }
-
+    private final static Logger logger = Logger.getLogger(DefaultSpecificationService.class);
     private static DefaultSpecificationService instance = new DefaultSpecificationService();
 
     @Override
@@ -45,6 +48,20 @@ try {
 }
  return specifications;
     }
-    
+    @Override
+    public Specifications insert(Specifications spec){
+        Specifications specc=null;
+        try {
+            specc= super.insert(spec);
+            specc.setCoursesList(MyCourseraApi.firstNCoursesByName(spec.getValue()));
+            for (Courses cou:specc.getCoursesList()) {
+                cou.setSpecId(specc.getId());
+                DefaultCoursesService.getInstance().insert(cou);
+            }
+        } catch (PersistException e) {
+            logger.debug(e);
+        }
+        return specc;
+    }
 }
 

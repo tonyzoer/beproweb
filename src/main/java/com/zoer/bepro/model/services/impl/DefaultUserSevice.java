@@ -5,11 +5,12 @@ import com.zoer.bepro.model.dao.mysqldao.MySqlDaoFactory;
 import com.zoer.bepro.model.dao.mysqldao.MySqlUserDao;
 import com.zoer.bepro.model.domain.User;
 import com.zoer.bepro.model.services.UserService;
+import org.apache.log4j.Logger;
 
 
 public class DefaultUserSevice extends GenericEntityService<User> implements UserService {
     private static final DefaultUserSevice instance = new DefaultUserSevice();
-
+    private final static Logger logger = Logger.getLogger(DefaultUserSevice.class);
     private DefaultUserSevice() {
     }
 
@@ -25,13 +26,26 @@ public class DefaultUserSevice extends GenericEntityService<User> implements Use
 
 
     @Override
-    public User authentication(String loginOrMail, String password) throws PersistException {
-        User user = getDao().getByNickOrEmail(loginOrMail);
+    public User authentication(String loginOrMail, String password) {
+        User user = null;
+        try {
+            user = getDao().getByNickOrEmail(loginOrMail);
+        } catch (PersistException e) {
+            logger.debug(e);
+        }
         if (user!=null && user.getPassword().equals(password))
             return user;
         return null;
     }
-
+    public User getUser(String loginOrMail){
+        try {
+            User user = getDao().getByNickOrEmail(loginOrMail);
+            return user;
+        } catch (PersistException e) {
+            logger.debug(e);
+        }
+        return null;
+    }
     @Override
     public User insert(User user) throws PersistException {
         if (getDao().getByNickOrEmail(user.getNickname()) != null)

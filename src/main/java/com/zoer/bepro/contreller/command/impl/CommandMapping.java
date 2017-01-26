@@ -21,7 +21,8 @@ public enum CommandMapping {
     COMPANYPROFILE(CompanyProfileCommand.getInstance()),
     STUDENTPROFILE(StudentProffileCommand.getInstance()),
     DELETEJOBOFFER(DeleteJobOfferCommand.getInstance()),
-    ADDJOBOFFERTOSTUDENT(AddJobOfferToStudentProfileCommand.getInstance())
+    ADDJOBOFFERTOSTUDENT(AddJobOfferToStudentProfileCommand.getInstance()),
+    USERINFO(UserInfoCommand.getInstance())
     ;
 
     private Command command;
