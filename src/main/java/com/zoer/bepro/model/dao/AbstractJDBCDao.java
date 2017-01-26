@@ -8,6 +8,7 @@ package com.zoer.bepro.model.dao;
 import com.mysql.cj.jdbc.MysqlDataSourceFactory;
 import com.zoer.bepro.model.dao.mysqldao.MyDataSourceFactory;
 import com.zoer.bepro.model.domain.Specifications;
+import org.apache.log4j.Logger;
 
 import javax.sql.DataSource;
 import java.sql.Connection;
@@ -17,31 +18,30 @@ import java.sql.SQLException;
 import java.util.List;
 
 /**
- *
- *
  * @param <T>  domain
  * @param <PK> pk key type (for future can be not only int)
  */
 public abstract class AbstractJDBCDao<T extends Identified<PK>, PK extends Integer> implements GenericDao<T, PK> {
+    private final static Logger logger = Logger.getLogger(AbstractJDBCDao.class);
+    private boolean rollback = false;
 
-    private boolean rollback=false;
     public AbstractJDBCDao() {
     }
+
     /*
     * For Tests
     * */
     @Override
-    public void setRollback(boolean b){
-        rollback=b;
+    public void setRollback(boolean b) {
+        rollback = b;
     }
-    /**
 
+    /**
      * SELECT * FROM [Table]
      */
     public abstract String getSelectAllQuery();
 
     /**
-
      * SELECT * FROM [Table] WHERE id=?
      */
     public abstract String getSelectQuery();
@@ -67,7 +67,6 @@ public abstract class AbstractJDBCDao<T extends Identified<PK>, PK extends Integ
     public abstract String getSelectLastInsertQuery();
 
 
-
     protected abstract List<T> parseResultSet(ResultSet rs) throws PersistException;
 
 
@@ -77,20 +76,21 @@ public abstract class AbstractJDBCDao<T extends Identified<PK>, PK extends Integ
     protected abstract void prepareStatementForUpdate(PreparedStatement statement, T object) throws PersistException;
 
 
-
     @Override
     public T persist(T object) throws PersistException {
         T persistInstance;
         try (Connection connection = MyDataSourceFactory.getMySQLDataSource().getConnection()) {
-            if (rollback)connection.setAutoCommit(false);
+            if (rollback) connection.setAutoCommit(false);
             String sql = getCreateQuery();
             try (PreparedStatement statement = connection.prepareStatement(sql)) {
                 prepareStatementForInsert(statement, object);
                 int count = statement.executeUpdate();
                 if (count != 1) {
+                    logger.debug("On persist modify more then 1 record: " + count + " class:" + object.getClass().toString());
                     throw new PersistException("On persist modify more then 1 record: " + count);
                 }
             } catch (Exception e) {
+                logger.debug(e);
                 throw new PersistException(e);
             }
 
@@ -103,13 +103,15 @@ public abstract class AbstractJDBCDao<T extends Identified<PK>, PK extends Integ
                 }
                 persistInstance = list.iterator().next();
             } catch (Exception e) {
+                logger.debug(e);
                 throw new PersistException(e);
-            }finally {
-                if (rollback){
+            } finally {
+                if (rollback) {
                     connection.rollback();
                 }
             }
         } catch (SQLException e) {
+            logger.debug(e);
             throw new PersistException(e);
         }
         return persistInstance;
@@ -117,9 +119,10 @@ public abstract class AbstractJDBCDao<T extends Identified<PK>, PK extends Integ
 
     @Override
     public T getByPK(Integer key) throws PersistException {
- return getBy(getSelectQuery(),key.toString());
+        return getBy(getSelectQuery(), key.toString());
     }
-    protected T getBy(String sql,String key) throws PersistException{
+
+    protected T getBy(String sql, String key) throws PersistException {
         List<T> list = null;
         try (Connection connection = MyDataSourceFactory.getMySQLDataSource().getConnection()) {
             try (PreparedStatement statement = connection.prepareStatement(sql)) {
@@ -127,32 +130,40 @@ public abstract class AbstractJDBCDao<T extends Identified<PK>, PK extends Integ
                 ResultSet rs = statement.executeQuery();
                 list = parseResultSet(rs);
             } catch (Exception e) {
+                logger.debug(e);
                 throw new PersistException(e);
             }
             if (list == null || list.size() == 0) {
+                logger.debug("Record with PK = " + key + " not found.");
                 throw new PersistException("Record with PK = " + key + " not found.");
             }
             if (list.size() > 1) {
+                logger.debug("Received more than one record.");
                 throw new PersistException("Received more than one record.");
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.debug(e);
         }
         return list.iterator().next();
     }
+
     @Override
     public void update(T object) throws PersistException {
         String sql = getUpdateQuery();
-        try(Connection connection=MyDataSourceFactory.getMySQLDataSource().getConnection()){
-        try (PreparedStatement statement = connection.prepareStatement(sql)) {
-            prepareStatementForUpdate(statement, object);
-            int count = statement.executeUpdate();
-            if (count != 1) {
-                throw new PersistException("On update modify more then 1 record: " + count);
+        try (Connection connection = MyDataSourceFactory.getMySQLDataSource().getConnection()) {
+            try (PreparedStatement statement = connection.prepareStatement(sql)) {
+                prepareStatementForUpdate(statement, object);
+                int count = statement.executeUpdate();
+                if (count != 1) {
+                    logger.debug("On update modify more then 1 record: " + count);
+                    throw new PersistException("On update modify more then 1 record: " + count);
+                }
+            } catch (Exception e) {
+                logger.debug(e);
+                throw new PersistException(e);
             }
-        } catch (Exception e) {
-            throw new PersistException(e);
-        }} catch (SQLException e) {
+        } catch (SQLException e) {
+            logger.debug(e);
             e.printStackTrace();
         }
     }
@@ -160,7 +171,7 @@ public abstract class AbstractJDBCDao<T extends Identified<PK>, PK extends Integ
     @Override
     public void delete(T object) throws PersistException {
         String sql = getDeleteQuery();
-        try (Connection connection=MyDataSourceFactory.getMySQLDataSource().getConnection()){
+        try (Connection connection = MyDataSourceFactory.getMySQLDataSource().getConnection()) {
             try (PreparedStatement statement = connection.prepareStatement(sql)) {
                 try {
                     statement.setObject(1, object.getId());
@@ -169,7 +180,8 @@ public abstract class AbstractJDBCDao<T extends Identified<PK>, PK extends Integ
                 }
                 int count = statement.executeUpdate();
                 if (count != 1) {
-                   // throw new PersistException("On delete modify more then 1 record: " + count);
+                    // throw new PersistException("On delete modify more then 1 record: " + count);
+                    logger.debug("On delete modify more then 1 record: " + count);
                 }
             } catch (Exception e) {
                 throw new PersistException(e);
@@ -187,34 +199,36 @@ public abstract class AbstractJDBCDao<T extends Identified<PK>, PK extends Integ
     @Override
     public List<T> getAll(String sql) throws PersistException {
         List<T> list;
-        try (Connection connection=MyDataSourceFactory.getMySQLDataSource().getConnection()) {
+        try (Connection connection = MyDataSourceFactory.getMySQLDataSource().getConnection()) {
             try (PreparedStatement statement = connection.prepareStatement(sql)) {
                 ResultSet rs = statement.executeQuery();
                 list = parseResultSet(rs);
             } catch (Exception e) {
                 throw new PersistException(e);
             }
-        }catch (SQLException e) {
+        } catch (SQLException e) {
             throw new PersistException(e);
         }
         return list;
     }
 
 
-
     //this code uses only in MySqlJobOffersDao and MySqlStudentProfileDao, its here to pretend copypaste
-    protected void prepareStatementForInsertSpecification(PreparedStatement statement, T object,  Identified<Integer> object2) throws PersistException { try {
-        statement.setInt(1, object.getId());
-        statement.setInt(2, object2.getId());
-    } catch (Exception e) {
-        throw new PersistException(e);
-    }}
+    protected void prepareStatementForInsertSpecification(PreparedStatement statement, T object, Identified<Integer> object2) throws PersistException {
+        try {
+            statement.setInt(1, object.getId());
+            statement.setInt(2, object2.getId());
+        } catch (Exception e) {
+            throw new PersistException(e);
+        }
+    }
+
     protected void addManyToManyRowToObj(String sql, T obj, Identified<Integer> object2) throws PersistException {
-        try(Connection connection=MyDataSourceFactory.getMySQLDataSource().getConnection()){
-            try(PreparedStatement statement=connection.prepareStatement(sql)){
-            prepareStatementForInsertSpecification(statement,obj,object2);
+        try (Connection connection = MyDataSourceFactory.getMySQLDataSource().getConnection()) {
+            try (PreparedStatement statement = connection.prepareStatement(sql)) {
+                prepareStatementForInsertSpecification(statement, obj, object2);
                 int count = statement.executeUpdate();
-                if (count!=1){
+                if (count != 1) {
                     throw new PersistException("On persist modify more or less then 1 record: " + count);
                 }
             }

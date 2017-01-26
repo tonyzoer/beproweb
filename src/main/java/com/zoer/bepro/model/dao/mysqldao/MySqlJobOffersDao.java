@@ -5,6 +5,7 @@ import com.zoer.bepro.model.dao.PersistException;
 import com.zoer.bepro.model.domain.CompanyProfile;
 import com.zoer.bepro.model.domain.JobOffers;
 import com.zoer.bepro.model.domain.Specifications;
+import com.zoer.bepro.model.domain.StudentProfile;
 import javafx.util.Pair;
 
 import java.sql.Connection;
@@ -106,6 +107,22 @@ public class MySqlJobOffersDao extends AbstractJDBCDao<JobOffers, Integer> {
         }
         return result;
     }
+    public List<JobOffers> getCompanyJobOffers(CompanyProfile cp){
+        try {
+            return getAll("select * from joboffers where companyprofile_idcompanyprofile="+cp.getId()+";");
+        } catch (PersistException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+    public List<JobOffers> getStudentJobOffers(StudentProfile sp){
+        try {
+            return getAll("call selectallstudentsjoboffers("+sp.getId()+");");
+        } catch (PersistException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
     public List<Pair<JobOffers,String >> jobOffersWithCompanyNames() throws PersistException {
         String sql="call jobofferswithCompannyNames();";
         List<Pair<JobOffers,String >> result = new LinkedList<>();
@@ -138,12 +155,19 @@ public class MySqlJobOffersDao extends AbstractJDBCDao<JobOffers, Integer> {
             throw new PersistException(e);
         }
     }
-    public List<JobOffers> getCompanyJobOffers(CompanyProfile cp){
-        try {
-            return getAll("select * from joboffers where companyprofile_idcompanyprofile="+cp.getId()+";");
-        } catch (PersistException e) {
-            e.printStackTrace();
-        }
-        return null;
+    public boolean existsSTudentJobOffer(StudentProfile sp, JobOffers jo){
+    try (Connection connection=MyDataSourceFactory.getMySQLDataSource().getConnection()){
+    try (PreparedStatement statement=connection.prepareStatement("SELECT * FROM bepro.studentprofile_has_joboffers where studentprofile_idstudentprofile=? and joboffers_idjoboffers=?;")){
+    statement.setInt(1,sp.getId());
+    statement.setInt(2,jo.getId());
+    ResultSet rs=statement.executeQuery();
+
+            if ((rs.next()))
+            return true;
+    }
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+    return false;
     }
 }

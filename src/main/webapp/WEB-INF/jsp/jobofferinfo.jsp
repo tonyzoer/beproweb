@@ -18,24 +18,41 @@
 <c:set value="${requestScope.jobOffer}" scope="request" var="jobOffer"/>
 <c:set value="${requestScope.jobOfferSpecification}" scope="request" var="jobOfferSpecification"/>
 <c:set value="${requestScope.jobOfferText}" scope="request" var="jobOfferText"/>
-<c:set value="${sessionScope.student}" scope="session" var="student"/>
+<c:set value="${requestScope.company}" scope="request" var="company"/>
+<c:set value="${requestScope.student}" scope="request" var="student"/>
+<c:set value="${requestScope.alreadyaplied}" scope="request" var="alreadyaplied"/>
+
 <section>
     <div class="container">
         <div class="col-md-12">
-            <div class="col-md-6"><h1>${jobOffer.getDescription()}</h1>
-            <p>${jobOfferText.getText()}</p>
+            <img src="${company.getImgurl()}" alt="Cinque Terre" class="img-responsive">
+            <div class="col-md-6"><h1>${jobOffer.getDescription()} <fmt:message key="in"
+                                                                                bundle="${bundle}"/> ${company.getInfotxt()}</h1>
+                <p>${jobOfferText.getText()}</p>
             </div>
             <div class="col-md-6"><h2><fmt:message key="spectoknow" bundle="${bundle}"/></h2>
-        <ol>
-    <c:forEach items="${jobOfferSpecification}" var="speci">
-        <li>${speci.getValue()}</li>
-    </c:forEach>
-    </ol>
-    </div>
-            <c:if test="${student}">
-    <div class="col-md-6"><h2><fmt:message key="apply" bundle="${bundle}"/></h2>
-        <a href="/Controller?command=ADDJOBOFFERTOSTUDENT&jobofferid=${jobOffer.getId()}" class="btn btn-primary btn-lg"><fmt:message key="sendaply" bundle="${bundle}"/></a>
-    </div>
+                <ol>
+                    <c:forEach items="${jobOfferSpecification}" var="speci">
+                        <li>${speci.getValue()}</li>
+                    </c:forEach>
+                </ol>
+            </div>
+            <c:if test="${student==true}">
+                <div class="col-md-6"><h2><fmt:message key="apply" bundle="${bundle}"/></h2>
+                <c:choose>
+                    <c:when test="${alreadyaplied==false}">
+
+
+                        <a href="/Controller?command=ADDJOBOFFERTOSTUDENT&jobofferid=${jobOffer.getId()}"
+                           class="btn btn-primary btn-lg"><fmt:message key="sendaply" bundle="${bundle}"/></a>
+                        </div>
+                    </c:when>
+                    <c:otherwise>
+                        <h2>
+                            <fmt:message key="alreadyapplied" bundle="${bundle}"/>
+                        </h2>
+                    </c:otherwise>
+                </c:choose>
             </c:if>
         </div>
     </div>

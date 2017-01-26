@@ -8,17 +8,15 @@ import com.zoer.bepro.model.domain.JobOffers;
 import com.zoer.bepro.model.domain.User;
 import com.zoer.bepro.model.services.impl.DefaultStudentProfileService;
 
-/**
- * Created by zoer on 25.01.17.
- */
+
 public class AddJobOfferToStudentProfileCommand implements Command {
+    private AddJobOfferToStudentProfileCommand() {
+    }
+
     private static AddJobOfferToStudentProfileCommand ourInstance = new AddJobOfferToStudentProfileCommand();
 
     public static AddJobOfferToStudentProfileCommand getInstance() {
         return ourInstance;
-    }
-
-    private AddJobOfferToStudentProfileCommand() {
     }
 
     @Override
@@ -26,6 +24,7 @@ public class AddJobOfferToStudentProfileCommand implements Command {
         JobOffers jo=new JobOffers();
         jo.setId(Integer.parseInt(req.getParameter("jobofferid")));
         DefaultStudentProfileService.getInstance().addJobOffer(user.getProfile().getStudentProfile().get(),jo);
-        return null;
+        req.addParameter("item", String.valueOf(jo.getId()));
+        return CommandMapping.valueOf("JOBOFFERINFO").getCommand().execute(req,user);
     }
 }

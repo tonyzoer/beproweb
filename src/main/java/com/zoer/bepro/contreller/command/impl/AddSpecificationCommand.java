@@ -33,6 +33,6 @@ public class AddSpecificationCommand implements Command {
         studentSpecifications.add(specification);
         req.getSessionWrapper().setSdudentsSpecifications(studentSpecifications);
         }
-        return ViewJsp.StudentSpace.STUDENT_JSP;
+        return CommandMapping.valueOf("STUDENTPROFILE").getCommand().execute(req,user);
     }
 }

@@ -3,22 +3,24 @@ package com.zoer.bepro.contreller.command.impl;
 import com.zoer.bepro.contreller.command.Command;
 import com.zoer.bepro.contreller.exeptions.InsufficientPermissionsException;
 import com.zoer.bepro.contreller.util.RequestWrapper;
-import com.zoer.bepro.contreller.util.ViewJsp;
 import com.zoer.bepro.model.dao.PersistException;
 import com.zoer.bepro.model.domain.User;
 
+/**
+ * Created by zoer on 26.01.17.
+ */
+public class UserInfoCommand implements Command {
+    private static UserInfoCommand ourInstance = new UserInfoCommand();
 
-public class LogOutCommand implements Command {
-    public static final LogOutCommand instance=new LogOutCommand();
+    public static UserInfoCommand getInstance() {
+        return ourInstance;
+    }
 
-    public static LogOutCommand getInstance() {
-        return instance;
+    private UserInfoCommand() {
     }
 
     @Override
     public String execute(RequestWrapper req, User user) throws InsufficientPermissionsException, PersistException {
-        req.getSessionWrapper().setUser(null);
-        req.getSessionWrapper().setProfileType(null);
-        return ViewJsp.General.MAIN;
+        return null;
     }
 }

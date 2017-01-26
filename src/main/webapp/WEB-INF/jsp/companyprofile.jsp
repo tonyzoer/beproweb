@@ -16,6 +16,7 @@
 <section>
     <div class="container">
         <div class="col-lg-8">
+            <img src="${sessionScope.user.getProfile().getCompanyProfile().get().getImgurl()}" alt="Cinque Terre" class="img-responsive">
             <c:set scope="request" value="${requestScope.joboffers}" var="joboffers"/>
             <c:forEach items="${joboffers}" var="joboffer">
                 <div class="row">
@@ -27,6 +28,7 @@
                            href="/Controller?command=JOBOFFERINFO&item=${joboffer.getId()}"><fmt:message key="moreinfo" bundle="${bundle}"/></a>
                     </div>
                 </div>
+                <hr>
             </c:forEach>
         </div>
         <div class="col-md-4">

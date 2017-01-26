@@ -9,6 +9,7 @@ import com.zoer.bepro.model.domain.JobOffers;
 import com.zoer.bepro.model.domain.Specifications;
 import com.zoer.bepro.model.domain.User;
 import com.zoer.bepro.model.services.ProfileType;
+import com.zoer.bepro.model.services.impl.DefaultCompanyProfileService;
 import com.zoer.bepro.model.services.impl.DefaultJobOfferTextService;
 import com.zoer.bepro.model.services.impl.DefaultJobOffersService;
 import com.zoer.bepro.model.services.impl.DefaultSpecificationService;
@@ -36,8 +37,13 @@ public class JobOfferFullInfoCommand implements Command{
         req.setAttribute("jobOfferSpecification",jobOfferSpecification);
         req.setAttribute("jobOffer",jobOffer);
         req.setAttribute("jobOfferText", DefaultJobOfferTextService.getInstance().getById(jobOffer.getId()));
+        req.setAttribute("company", DefaultCompanyProfileService.getInstance().getById(jobOffer.getCompanyId()));
         if (req.getSessionWrapper().getProfileType()== ProfileType.STUDENT){
             req.setAttribute("student",true);
+            req.setAttribute("alreadyaplied",DefaultJobOffersService.getInstance().existsSTudentJobOffer(user.getProfile().getStudentProfile().get(),jobOffer));
+        }else {
+            req.setAttribute("student",false);
+
         }
         return ViewJsp.JobOffer.JOBOFFERINFO;
     }

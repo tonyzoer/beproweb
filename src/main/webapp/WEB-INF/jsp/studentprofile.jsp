@@ -65,14 +65,27 @@
                 </div>
             </div>
 
-
         </div>
-
-    </div>
-    </div>
     </div>
 </section>
 
+<section>
+    <div class="container">
+        <div class="col-lg-12 center-block">
+            <c:set scope="request" value="${requestScope.studentsOffers}" var="joboffers"/>
+            <c:forEach items="${joboffers}" var="joboffer">
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 bg-info center-block">
+                        <c:out value="${joboffer.getDescription()}"/>
+                        <a class="btn btn-primary btn-lg pull-right"
+                           href="/Controller?command=JOBOFFERINFO&item=${joboffer.getId()}"><fmt:message key="moreinfo" bundle="${bundle}"/></a>
+                    </div>
+                </div>
+                <hr/>
+            </c:forEach>
+        </div>
+    </div>
+</section>
 <!-- END FOOTER SECTION -->
 <%@include file="includes/footer.jsp" %>
 <%@include file="includes/jscripts.jsp" %>

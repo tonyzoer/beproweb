@@ -18,12 +18,13 @@
     <div class="container">
         <c:forEach items="${alljoboffers}" var="joboffer">
             <div class="row">
-            <div class="col-lg-6 col-md-12 bg-info center-block">
+            <div class="col-lg-12 col-md-12 bg-info center-block">
                 <c:out value="${joboffer.getKey().getDescription()} in ${joboffer.getValue()}"/>
                 <a class="btn btn-primary btn-lg pull-right"
                    href="/Controller?command=JOBOFFERINFO&item=${joboffer.getKey().getId()}"><fmt:message key="moreinfo" bundle="${bundle}"/></a>
             </div>
             </div>
+            <hr/>
         </c:forEach>
     </div>
 </section>

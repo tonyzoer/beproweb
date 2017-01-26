@@ -11,9 +11,6 @@ import java.sql.ResultSet;
 import java.util.LinkedList;
 import java.util.List;
 
-/**
- * Created by zoer on 31.12.16.
- */
 public class MySqlStudentProfileDao extends AbstractJDBCDao<StudentProfile, Integer> {
 
     class PersistStudentProfile extends StudentProfile {
@@ -59,11 +56,11 @@ public class MySqlStudentProfileDao extends AbstractJDBCDao<StudentProfile, Inte
         return "call selectlastinsertstudentprofile();";
     }
 
-    public String getNewStudentSpecificationInsertQuery() {
+    private String getNewStudentSpecificationInsertQuery() {
         return "call newstudentsspecification(?,?)";
     }
 
-    public String getNewStudentJobOfferInsertQuery() {
+    private String getNewStudentJobOfferInsertQuery() {
         return "call newstudentsjoboffer(?,?)";
     }
 
@@ -123,7 +120,7 @@ public class MySqlStudentProfileDao extends AbstractJDBCDao<StudentProfile, Inte
 
     public void addNewJobOffer(StudentProfile studentProfile, JobOffers jo) throws PersistException {
         try {
-            addManyToManyRowToObj(getNewStudentSpecificationInsertQuery(), studentProfile, jo);
+            addManyToManyRowToObj(getNewStudentJobOfferInsertQuery(), studentProfile, jo);
         } catch (PersistException e) {
             throw new PersistException(e);
         }

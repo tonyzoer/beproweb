@@ -4,10 +4,7 @@ import com.zoer.bepro.model.dao.AbstractJDBCDao;
 import com.zoer.bepro.model.dao.PersistException;
 import com.zoer.bepro.model.dao.mysqldao.MySqlDaoFactory;
 import com.zoer.bepro.model.dao.mysqldao.MySqlJobOffersDao;
-import com.zoer.bepro.model.domain.CompanyProfile;
-import com.zoer.bepro.model.domain.JobOfferText;
-import com.zoer.bepro.model.domain.JobOffers;
-import com.zoer.bepro.model.domain.Specifications;
+import com.zoer.bepro.model.domain.*;
 import com.zoer.bepro.model.services.JobOffersService;
 import com.zoer.bepro.model.services.ServiceFactory;
 import javafx.util.Pair;
@@ -55,4 +52,23 @@ public class DefaultJobOffersService extends GenericEntityService<JobOffers> imp
         }
         return null;
     }
+    public List<JobOffers> getStudentsJobOffers(StudentProfile sp){
+        try {
+            MySqlJobOffersDao dao= (MySqlJobOffersDao) getDao();
+            return dao.getStudentJobOffers(sp);
+        } catch (PersistException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+    public boolean existsSTudentJobOffer(StudentProfile sp,JobOffers jo){
+        try {
+            MySqlJobOffersDao dao= (MySqlJobOffersDao) getDao();
+            return dao.existsSTudentJobOffer(sp,jo);
+        } catch (PersistException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
 }
