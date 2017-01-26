@@ -15,9 +15,7 @@ public class CompanyProfile implements Identified<Integer> {
     String imgurl;
     List<JobOffers> joboffers;
 
-    public Integer getIdcompanyprofile() {
-        return idcompanyprofile;
-    }
+
 
     public List<JobOffers> getJoboffers() {
         return joboffers;

@@ -43,7 +43,7 @@
                         <c:forEach items="${allspecifications}" var="speci">
                             <option name="specification" value="${speci.getId()}--${speci.getValue()}">
                                     ${speci.getValue()}
-                                    <option hidden name="id" value="${speci.getId()}"/>
+                            <option hidden name="id" value="${speci.getId()}"/>
                             </option>
                         </c:forEach>
                     </select>
@@ -53,19 +53,17 @@
             <div class="col-md-12">
                 <h2>MY SKILL SET</h2>
                 <br/>
-                <div class="alert-info">
-                    <c:forEach items="${specifications}" var="spec">
-                    <div class="progress progress-adjust">
-                        <div class="progress-bar progress-bar-success" style="width: 30%">
-                            <div class="skill-div">${spec.getValue()}</div>
-                            <span class="sr-only">30% Complete (success)</span>
-                        </div>
-                        </c:forEach>
-                    </div>
-                </div>
-            </div>
 
+                    <c:forEach items="${specifications}" var="spec">
+                        <a href="/Controller?command=SPECINFO&item=${spec.getId()}"
+                               class="btn-link btn-lg">${spec.getValue()}</a>
+                    </c:forEach>
+
+            </div>
         </div>
+    </div>
+
+    </div>
     </div>
 </section>
 
@@ -78,7 +76,8 @@
                     <div class="col-lg-12 col-md-12 bg-info center-block">
                         <c:out value="${joboffer.getDescription()}"/>
                         <a class="btn btn-primary btn-lg pull-right"
-                           href="/Controller?command=JOBOFFERINFO&item=${joboffer.getId()}"><fmt:message key="moreinfo" bundle="${bundle}"/></a>
+                           href="/Controller?command=JOBOFFERINFO&item=${joboffer.getId()}"><fmt:message key="moreinfo"
+                                                                                                         bundle="${bundle}"/></a>
                     </div>
                 </div>
                 <hr/>
