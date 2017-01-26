@@ -21,6 +21,7 @@ public class DefaultSpecificationService extends GenericEntityService<Specificat
     public static DefaultSpecificationService getInstance() {
         return instance;
     }
+
     private final static Logger logger = Logger.getLogger(DefaultSpecificationService.class);
     private static DefaultSpecificationService instance = new DefaultSpecificationService();
 
@@ -28,35 +29,39 @@ public class DefaultSpecificationService extends GenericEntityService<Specificat
     AbstractJDBCDao<Specifications, Integer> getDao() throws PersistException {
         return (MySqlSpecificationsDao) MySqlDaoFactory.getInstance().getDao(Specifications.class);
     }
-    public List<Specifications> getStudentsSpecifications(Integer studentId){
-        List<Specifications> specifications=new ArrayList<>();
+
+    public List<Specifications> getStudentsSpecifications(Integer studentId) {
+        List<Specifications> specifications = new ArrayList<>();
         try {
-            MySqlSpecificationsDao dao=(MySqlSpecificationsDao )getDao();
-            specifications=dao.getAllStudentSpecifications(studentId);
+            MySqlSpecificationsDao dao = (MySqlSpecificationsDao) getDao();
+            specifications = dao.getAllStudentSpecifications(studentId);
         } catch (PersistException e) {
             e.printStackTrace();
         }
         return specifications;
     }
-    public  List<Specifications> getJobOfferSpecifications(Integer jobOfferId){
-        List<Specifications> specifications=new ArrayList<>();
-try {
-    MySqlSpecificationsDao dao=(MySqlSpecificationsDao )getDao();
-    specifications=dao.getAllJobOfferSpecifications(jobOfferId);
-} catch (PersistException e) {
-    e.printStackTrace();
-}
- return specifications;
-    }
-    @Override
-    public Specifications insert(Specifications spec){
-        Specifications specc=null;
+
+    public List<Specifications> getJobOfferSpecifications(Integer jobOfferId) {
+        List<Specifications> specifications = new ArrayList<>();
         try {
-            specc= super.insert(spec);
+            MySqlSpecificationsDao dao = (MySqlSpecificationsDao) getDao();
+            specifications = dao.getAllJobOfferSpecifications(jobOfferId);
+        } catch (PersistException e) {
+            e.printStackTrace();
+        }
+        return specifications;
+    }
+
+    @Override
+    public Specifications insert(Specifications spec) {
+        Specifications specc = null;
+        try {
+            specc = super.insert(spec);
             specc.setCoursesList(MyCourseraApi.firstNCoursesByName(spec.getValue()));
-            for (Courses cou:specc.getCoursesList()) {
+            for (Courses cou : specc.getCoursesList()) {
                 cou.setSpecId(specc.getId());
                 DefaultCoursesService.getInstance().insert(cou);
+
             }
         } catch (PersistException e) {
             logger.debug(e);

@@ -1,5 +1,6 @@
 package com.zoer.bepro.model.dao.mysqldao;
 
+import com.mysql.cj.jdbc.MysqlDataSource;
 import com.zoer.bepro.model.dao.AbstractJDBCDao;
 import com.zoer.bepro.model.dao.PersistException;
 import com.zoer.bepro.model.domain.Courses;
@@ -7,6 +8,7 @@ import com.zoer.bepro.model.domain.Courses;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -90,5 +92,21 @@ public class MySqlCoursesDao extends AbstractJDBCDao<Courses, Integer> {
         } catch (Exception e) {
             throw new PersistException(e);
         }
+    }
+
+    public List<Courses> getAllBySpec(Integer specId) {
+        String sql="select *from courses where specifications_idspecifications=?";
+        try(Connection connection = MyDataSourceFactory.getMySQLDataSource().getConnection()) {
+            try(PreparedStatement statement=connection.prepareStatement(sql)){
+                statement.setInt(1,specId);
+                ResultSet rs=statement.executeQuery();
+                return parseResultSet(rs);
+            } catch (PersistException e) {
+                e.printStackTrace();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }

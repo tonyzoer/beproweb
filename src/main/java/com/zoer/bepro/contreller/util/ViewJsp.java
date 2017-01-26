@@ -7,6 +7,7 @@ public interface ViewJsp {
         String ERROR_404 = "404.jsp";
         String MAIN="/";
         String JOBOFFERS="WEB-INF/jsp/alljoboffers.jsp";
+        String SPECIFICATION="WEB-INF/jsp/specification.jsp";
     }
 
     interface AdminSpace {
