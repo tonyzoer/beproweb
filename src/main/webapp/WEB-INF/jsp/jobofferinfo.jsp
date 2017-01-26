@@ -33,7 +33,7 @@
             <div class="col-md-6"><h2><fmt:message key="spectoknow" bundle="${bundle}"/></h2>
                 <ol>
                     <c:forEach items="${jobOfferSpecification}" var="speci">
-                        <li>${speci.getValue()}</li>
+                        <li><a href="/Controller?command=SPECINFO&item=${speci.getId()}" class="btn-link">${speci.getValue()}</a></li>
                     </c:forEach>
                 </ol>
             </div>

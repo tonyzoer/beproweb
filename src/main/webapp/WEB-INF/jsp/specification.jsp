@@ -6,7 +6,21 @@
     <title>Title</title>
 </head>
 <body>
-
+<c:set scope="request" value="${requestScope.courses}" var="courses"/>
+<c:set scope="request" value="${requestScope.spec}" var="spec"/>
+<div class="container">
+    <div class="col-lg-12 center-block">
+        <h2>${spec.getValue()}</h2>
+        <div class="col-lg-8">
+            <ol>
+                <c:forEach items="${courses}" var="course" >
+                    <li><a href="${course.getUrl()}">${course.getSpecName()}</a></li>
+                    <hr/>
+                </c:forEach>
+            </ol>
+        </div>
+    </div>
+</div>
 
 
 
