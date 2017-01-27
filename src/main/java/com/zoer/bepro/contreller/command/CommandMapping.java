@@ -1,6 +1,7 @@
-package com.zoer.bepro.contreller.command.impl;
+package com.zoer.bepro.contreller.command;
 
 import com.zoer.bepro.contreller.command.Command;
+import com.zoer.bepro.contreller.command.impl.*;
 
 /**
  * Created by zoer on 23.01.17.

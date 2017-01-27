@@ -7,7 +7,7 @@ import com.zoer.bepro.contreller.util.SessionWrapper;
 import com.zoer.bepro.contreller.util.ViewJsp;
 import com.zoer.bepro.model.domain.User;
 
-class LocalizationCommand implements Command {
+public class LocalizationCommand implements Command {
 
     @Override
     public String execute(RequestWrapper req, User user) {

@@ -1,6 +1,7 @@
 package com.zoer.bepro.contreller.command.impl;
 
 import com.zoer.bepro.contreller.command.Command;
+import com.zoer.bepro.contreller.command.CommandMapping;
 import com.zoer.bepro.contreller.exeptions.InsufficientPermissionsException;
 import com.zoer.bepro.contreller.util.RequestWrapper;
 import com.zoer.bepro.contreller.util.ViewJsp;
@@ -10,8 +11,6 @@ import com.zoer.bepro.model.domain.StudentProfile;
 import com.zoer.bepro.model.domain.User;
 import com.zoer.bepro.model.services.ProfileType;
 import com.zoer.bepro.model.services.impl.DefaultProfileService;
-
-import javax.swing.text.View;
 
 /**
  * Created by zoer on 20.01.17.

@@ -1,6 +1,7 @@
 package com.zoer.bepro.contreller.command.impl;
 
 import com.zoer.bepro.contreller.command.Command;
+import com.zoer.bepro.contreller.command.CommandMapping;
 import com.zoer.bepro.contreller.exeptions.InsufficientPermissionsException;
 import com.zoer.bepro.contreller.util.RequestWrapper;
 import com.zoer.bepro.contreller.util.ViewJsp;
@@ -15,7 +16,6 @@ import com.zoer.bepro.model.services.impl.DefaultJobOffersService;
 import com.zoer.bepro.model.services.impl.DefaultSpecificationService;
 
 import java.util.Arrays;
-import java.util.LinkedList;
 import java.util.List;
 
 /**

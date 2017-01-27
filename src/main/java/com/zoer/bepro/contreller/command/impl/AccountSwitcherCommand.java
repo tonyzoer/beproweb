@@ -1,18 +1,15 @@
 package com.zoer.bepro.contreller.command.impl;
 
 import com.zoer.bepro.contreller.command.Command;
+import com.zoer.bepro.contreller.command.CommandMapping;
 import com.zoer.bepro.contreller.exeptions.InsufficientPermissionsException;
 import com.zoer.bepro.contreller.util.JspMessagesSetter;
 import com.zoer.bepro.contreller.util.RequestWrapper;
 import com.zoer.bepro.contreller.util.ViewJsp;
 import com.zoer.bepro.model.dao.PersistException;
-import com.zoer.bepro.model.domain.Specifications;
 import com.zoer.bepro.model.domain.User;
 import com.zoer.bepro.model.services.ProfileType;
-import com.zoer.bepro.model.services.impl.DefaultSpecificationService;
 import org.apache.log4j.Logger;
-
-import java.util.List;
 
 /**
  * Created by zoer on 20.01.17.
