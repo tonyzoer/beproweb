@@ -18,14 +18,7 @@ import java.util.List;
  * Created by zoer on 24.01.17.
  */
 public class StudentProffileCommand implements Command {
-    private static StudentProffileCommand ourInstance = new StudentProffileCommand();
 
-    public static StudentProffileCommand getInstance() {
-        return ourInstance;
-    }
-
-    private StudentProffileCommand() {
-    }
 
     @Override
     public String execute(RequestWrapper req, User user) throws InsufficientPermissionsException, PersistException {

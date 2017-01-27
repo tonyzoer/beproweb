@@ -18,12 +18,6 @@ import java.util.List;
  */
 public class AddSpecificationCommand implements Command {
 
-    private static AddSpecificationCommand instance = new AddSpecificationCommand();
-
-    public static AddSpecificationCommand getInstance() {
-        return instance;
-    }
-
     @Override
     public String execute(RequestWrapper req, User user) throws InsufficientPermissionsException, PersistException {
         String parameter = req.getParameter("item");
@@ -33,6 +27,6 @@ public class AddSpecificationCommand implements Command {
         studentSpecifications.add(specification);
         req.getSessionWrapper().setSdudentsSpecifications(studentSpecifications);
         }
-        return CommandMapping.valueOf("STUDENTPROFILE").getCommand().execute(req,user);
+        return CommandMapping.STUDENTPROFILE.getCommand().execute(req,user);
     }
 }

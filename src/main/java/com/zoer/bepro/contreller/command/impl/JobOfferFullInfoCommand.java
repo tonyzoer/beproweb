@@ -19,30 +19,22 @@ import java.util.List;
 /**
  * Created by zoer on 22.01.17.
  */
-public class JobOfferFullInfoCommand implements Command{
-    private static JobOfferFullInfoCommand ourInstance = new JobOfferFullInfoCommand();
-
-    public static JobOfferFullInfoCommand getInstance() {
-        return ourInstance;
-    }
-
-    private JobOfferFullInfoCommand() {
-    }
+public class JobOfferFullInfoCommand implements Command {
 
     @Override
     public String execute(RequestWrapper req, User user) throws InsufficientPermissionsException, PersistException {
-        String jobOfferID=req.getParameter("item");
-        JobOffers jobOffer= DefaultJobOffersService.getInstance().getById(Integer.parseInt(jobOfferID));
-        List<Specifications> jobOfferSpecification= DefaultSpecificationService.getInstance().getJobOfferSpecifications(jobOffer.getId());
-        req.setAttribute("jobOfferSpecification",jobOfferSpecification);
-        req.setAttribute("jobOffer",jobOffer);
+        String jobOfferID = req.getParameter("item");
+        JobOffers jobOffer = DefaultJobOffersService.getInstance().getById(Integer.parseInt(jobOfferID));
+        List<Specifications> jobOfferSpecification = DefaultSpecificationService.getInstance().getJobOfferSpecifications(jobOffer.getId());
+        req.setAttribute("jobOfferSpecification", jobOfferSpecification);
+        req.setAttribute("jobOffer", jobOffer);
         req.setAttribute("jobOfferText", DefaultJobOfferTextService.getInstance().getById(jobOffer.getId()));
         req.setAttribute("company", DefaultCompanyProfileService.getInstance().getById(jobOffer.getCompanyId()));
-        if (req.getSessionWrapper().getProfileType()== ProfileType.STUDENT){
-            req.setAttribute("student",true);
-            req.setAttribute("alreadyaplied",DefaultJobOffersService.getInstance().existsSTudentJobOffer(user.getProfile().getStudentProfile().get(),jobOffer));
-        }else {
-            req.setAttribute("student",false);
+        if (req.getSessionWrapper().getProfileType() == ProfileType.STUDENT) {
+            req.setAttribute("student", true);
+            req.setAttribute("alreadyaplied", DefaultJobOffersService.getInstance().existsSTudentJobOffer(user.getProfile().getStudentProfile().get(), jobOffer));
+        } else {
+            req.setAttribute("student", false);
 
         }
         return ViewJsp.JobOffer.JOBOFFERINFO;

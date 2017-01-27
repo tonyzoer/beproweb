@@ -35,8 +35,4 @@ public class DefaultCommandDispatcher implements CommandDispatcher{
         }
     }
 
-    public static void main(String[] args) {
-       Command cmd=CommandMapping.valueOf("LOGIN").getCommand();
-        System.out.println(cmd);
-    }
 }

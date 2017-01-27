@@ -13,14 +13,7 @@ import com.zoer.bepro.model.services.impl.DefaultJobOffersService;
  * Created by zoer on 25.01.17.
  */
 public class DeleteJobOfferCommand implements Command {
-    private static DeleteJobOfferCommand ourInstance = new DeleteJobOfferCommand();
 
-    public static DeleteJobOfferCommand getInstance() {
-        return ourInstance;
-    }
-
-    private DeleteJobOfferCommand() {
-    }
 
     @Override
     public String execute(RequestWrapper req, User user) throws InsufficientPermissionsException, PersistException {
@@ -28,6 +21,6 @@ public class DeleteJobOfferCommand implements Command {
         if (user.getProfile().getCompanyProfile().get().getId()==jo.getCompanyId()){
         DefaultJobOffersService.getInstance().delete(jo);
         }
-        return CompanyProfileCommand.getInstance().execute(req,user);
+        return CommandMapping.COMPANYPROFILE.getCommand().execute(req,user);
     }
 }

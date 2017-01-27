@@ -10,15 +10,6 @@ import com.zoer.bepro.model.services.impl.DefaultStudentProfileService;
 
 
 public class AddJobOfferToStudentProfileCommand implements Command {
-    private AddJobOfferToStudentProfileCommand() {
-    }
-
-    private static AddJobOfferToStudentProfileCommand ourInstance = new AddJobOfferToStudentProfileCommand();
-
-    public static AddJobOfferToStudentProfileCommand getInstance() {
-        return ourInstance;
-    }
-
     @Override
     public String execute(RequestWrapper req, User user) throws InsufficientPermissionsException, PersistException {
         JobOffers jo=new JobOffers();

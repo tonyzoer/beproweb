@@ -18,11 +18,8 @@ import java.util.List;
  * Created by zoer on 20.01.17.
  */
 public class AccountSwitcherCommand implements Command {
-    private static AccountSwitcherCommand instance = new AccountSwitcherCommand();
     private final static Logger logger = Logger.getLogger(AccountSwitcherCommand.class);
-    public static AccountSwitcherCommand getInstance() {
-        return instance;
-    }
+
 
     @Override
     public String execute(RequestWrapper req, User user) throws InsufficientPermissionsException, PersistException {
@@ -35,12 +32,12 @@ public class AccountSwitcherCommand implements Command {
             ProfileType prftype = req.getSessionWrapper().getProfileType();
             switch (prftype) {
                 case STUDENT:
-                    return StudentProffileCommand.getInstance().execute(req, user);
+                    return CommandMapping.STUDENTPROFILE.getCommand().execute(req, user);
                 case NOONE:
                     return ViewJsp.UserSpace.CHOOSE_PROFILE_JSP;
 
                 case COMPANY:
-                    return CompanyProfileCommand.getInstance().execute(req, user);
+                    return CommandMapping.COMPANYPROFILE.getCommand().execute(req, user);
 
                 case ADMIN:
                     return ViewJsp.AdminSpace.ADMIN_JSP;

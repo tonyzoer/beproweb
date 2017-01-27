@@ -22,10 +22,17 @@
                 <div class="row">
                     <div class="col-lg-6 col-md-12 bg-info center-block">
                         <c:out value="${joboffer.getDescription()}"/>
-                        <a class="btn btn-primary btn-lg pull-right"
-                           href="/Controller?command=DELETEJOBOFFER&item=${joboffer.getId()}"><fmt:message key="delete" bundle="${bundle}"/></a>
-                        <a class="btn btn-primary btn-lg pull-right"
-                           href="/Controller?command=JOBOFFERINFO&item=${joboffer.getId()}"><fmt:message key="moreinfo" bundle="${bundle}"/></a>
+                        <form action="/Controller" method="post">
+                            <INPUT type="hidden" name="command" value="DELETEJOBOFFER"/>
+                            <input type="submit" class="btn btn-primary btn-lg pull-right" name="item"
+                           value="${joboffer.getId()}" placeholder=<fmt:message key="delete" bundle="${bundle}"/>/>
+                        </form>
+                        <form action="/Controller" method="get">
+                            <INPUT type="hidden" name="command" value="JOBOFFERINFO"/>
+                            <input type="submit" class="btn btn-primary btn-lg pull-right" name="item"
+                               value="${joboffer.getId()}"><fmt:message key="moreinfo" bundle="${bundle}" var="moreinfo"/></input>
+                        </form>
+
                     </div>
                 </div>
                 <hr>

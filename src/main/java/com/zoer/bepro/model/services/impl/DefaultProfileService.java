@@ -7,6 +7,7 @@ import com.zoer.bepro.model.dao.mysqldao.MySqlProfileDao;
 import com.zoer.bepro.model.domain.*;
 import com.zoer.bepro.model.services.ProfileServices;
 import com.zoer.bepro.model.services.ProfileType;
+import org.apache.log4j.Logger;
 
 /**
  * Created by Zoer on 13.01.2017.
@@ -17,7 +18,7 @@ public class DefaultProfileService extends GenericEntityService<Profile> impleme
     public static DefaultProfileService getInstance() {
         return instance;
     }
-
+    private final static Logger logger = Logger.getLogger(DefaultProfileService.class);
     @Override
     AbstractJDBCDao<Profile, Integer> getDao() throws PersistException {
         return (MySqlProfileDao) MySqlDaoFactory.getInstance().getDao(Profile.class);
@@ -35,7 +36,7 @@ public class DefaultProfileService extends GenericEntityService<Profile> impleme
         try {
             return getDao().getByPK(user.getId());
         } catch (PersistException e) {
-            //TODO log
+            logger.debug(e);
         }
         return null;
     }

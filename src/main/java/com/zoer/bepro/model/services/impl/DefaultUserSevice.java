@@ -46,19 +46,5 @@ public class DefaultUserSevice extends GenericEntityService<User> implements Use
         }
         return null;
     }
-    @Override
-    public User insert(User user) throws PersistException {
-        if (getDao().getByNickOrEmail(user.getNickname()) != null)
-            throw new PersistException("This accaunt is already exsists");
-     return super.insert(user);
 
-    }
-
-    @Override
-    public void update(User user) throws PersistException{
-        User sqlUser = getDao().getByNickOrEmail(user.getNickname());
-        if (sqlUser == null || sqlUser.getId() != user.getId())
-            throw new PersistException("This user not exists");
-        super.update(user);
-    }
 }

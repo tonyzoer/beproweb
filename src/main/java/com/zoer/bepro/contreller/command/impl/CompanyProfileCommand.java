@@ -16,14 +16,7 @@ import java.util.List;
  * Created by zoer on 24.01.17.
  */
 public class CompanyProfileCommand implements Command {
-    private static CompanyProfileCommand ourInstance = new CompanyProfileCommand();
 
-    public static CompanyProfileCommand getInstance() {
-        return ourInstance;
-    }
-
-    private CompanyProfileCommand() {
-    }
 
     @Override
     public String execute(RequestWrapper req, User user) throws InsufficientPermissionsException, PersistException {

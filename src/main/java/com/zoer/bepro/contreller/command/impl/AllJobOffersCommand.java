@@ -20,14 +20,7 @@ import java.util.List;
  * Created by zoer on 22.01.17.
  */
 public class AllJobOffersCommand implements Command {
-    private static AllJobOffersCommand ourInstance = new AllJobOffersCommand();
 
-    public static AllJobOffersCommand getInstance() {
-        return ourInstance;
-    }
-
-    private AllJobOffersCommand() {
-    }
 
     @Override
     public String execute(RequestWrapper req, User user) throws InsufficientPermissionsException, PersistException {

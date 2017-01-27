@@ -11,14 +11,6 @@ import com.zoer.bepro.model.domain.User;
  * Created by zoer on 23.01.17.
  */
 public class RegistrationViewCommand implements Command {
-    private static RegistrationViewCommand ourInstance = new RegistrationViewCommand();
-
-    public static RegistrationViewCommand getInstance() {
-        return ourInstance;
-    }
-
-    private RegistrationViewCommand() {
-    }
 
     @Override
     public String execute(RequestWrapper req, User user) throws InsufficientPermissionsException, PersistException {

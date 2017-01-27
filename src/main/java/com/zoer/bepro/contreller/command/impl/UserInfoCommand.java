@@ -19,14 +19,6 @@ import com.zoer.bepro.model.services.impl.DefaultUserSevice;
  * Created by zoer on 26.01.17.
  */
 public class UserInfoCommand implements Command {
-    private static UserInfoCommand ourInstance = new UserInfoCommand();
-
-    public static UserInfoCommand getInstance() {
-        return ourInstance;
-    }
-
-    private UserInfoCommand() {
-    }
 
     @Override
     public String execute(RequestWrapper req, User user) throws InsufficientPermissionsException, PersistException {

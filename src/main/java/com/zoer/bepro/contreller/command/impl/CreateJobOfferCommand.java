@@ -22,14 +22,7 @@ import java.util.List;
  * Created by zoer on 22.01.17.
  */
 public class CreateJobOfferCommand implements Command {
-    private static CreateJobOfferCommand ourInstance = new CreateJobOfferCommand();
 
-    public static CreateJobOfferCommand getInstance() {
-        return ourInstance;
-    }
-
-    private CreateJobOfferCommand() {
-    }
 
     @Override
     public String execute(RequestWrapper req, User user) throws InsufficientPermissionsException, PersistException {
@@ -64,6 +57,6 @@ public class CreateJobOfferCommand implements Command {
             }
         }
         req.addParameter("item", jo.getId().toString());
-        return CommandMapping.valueOf("JOBOFFERINFO").getCommand().execute(req, user);
+        return CommandMapping.JOBOFFERINFO.getCommand().execute(req, user);
     }
 }

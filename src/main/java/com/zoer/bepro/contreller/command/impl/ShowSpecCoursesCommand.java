@@ -14,14 +14,7 @@ import com.zoer.bepro.model.services.impl.DefaultSpecificationService;
  * Created by zoer on 27.01.17.
  */
 public class ShowSpecCoursesCommand implements Command {
-    private static ShowSpecCoursesCommand ourInstance = new ShowSpecCoursesCommand();
 
-    public static ShowSpecCoursesCommand getInstance() {
-        return ourInstance;
-    }
-
-    private ShowSpecCoursesCommand() {
-    }
 
     @Override
     public String execute(RequestWrapper req, User user) throws InsufficientPermissionsException, PersistException {

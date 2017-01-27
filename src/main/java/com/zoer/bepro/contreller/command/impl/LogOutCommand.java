@@ -9,11 +9,6 @@ import com.zoer.bepro.model.domain.User;
 
 
 public class LogOutCommand implements Command {
-    public static final LogOutCommand instance=new LogOutCommand();
-
-    public static LogOutCommand getInstance() {
-        return instance;
-    }
 
     @Override
     public String execute(RequestWrapper req, User user) throws InsufficientPermissionsException, PersistException {

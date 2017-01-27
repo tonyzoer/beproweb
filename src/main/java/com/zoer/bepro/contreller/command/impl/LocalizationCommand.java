@@ -8,14 +8,6 @@ import com.zoer.bepro.contreller.util.ViewJsp;
 import com.zoer.bepro.model.domain.User;
 
 class LocalizationCommand implements Command {
-    private static final LocalizationCommand instance = new LocalizationCommand();
-
-    private LocalizationCommand() {
-    }
-
-    static LocalizationCommand getInstance() {
-        return instance;
-    }
 
     @Override
     public String execute(RequestWrapper req, User user) {

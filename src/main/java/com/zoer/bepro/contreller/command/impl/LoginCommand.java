@@ -14,15 +14,6 @@ import com.zoer.bepro.model.services.impl.*;
  */
 public class LoginCommand implements Command {
 
-    private static LoginCommand instance = new LoginCommand();
-
-    private LoginCommand() {
-    }
-
-    static LoginCommand getInstance() {
-
-        return instance;
-    }
 
     @Override
     public String execute(RequestWrapper req, User user) throws InsufficientPermissionsException, PersistException {
@@ -31,13 +22,9 @@ public class LoginCommand implements Command {
                 authentication(req.getParameter("uname"),
                         req.getParameter("pass"));
         if (AutentificatedUser != null) {
-
             req.getSessionWrapper().setUser(AutentificatedUser);
             req.getSessionWrapper().setProfileType(DefaultProfileService.getInstance().getProfileType(AutentificatedUser.getProfile()));
-
         }
-
-
         return ViewJsp.General.MAIN;
 
     }

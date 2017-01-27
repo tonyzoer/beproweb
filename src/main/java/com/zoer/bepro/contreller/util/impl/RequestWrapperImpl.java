@@ -16,13 +16,14 @@ public class RequestWrapperImpl implements RequestWrapper {
     private final Set<String> deniedToReadParameters = new HashSet<>();
     private final Set<String> deniedToWriteAttributes = new HashSet<>();
 
-    {
-        deniedToReadParameters.add("test");
-        deniedToWriteAttributes.add("test");
-    }
 
     public RequestWrapperImpl (HttpServletRequest req) {
         this.req = req;
+    }
+
+    public RequestWrapperImpl() {
+        deniedToReadParameters.add("test");
+        deniedToWriteAttributes.add("test");
     }
 
     @Override

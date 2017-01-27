@@ -6,24 +6,25 @@ import com.zoer.bepro.contreller.command.Command;
  * Created by zoer on 23.01.17.
  */
 public enum CommandMapping {
-    LOGIN(LoginCommand.getInstance()),
-    REGISTER(RegistrationCommand.getInstance()),
-    DETECTPROFILE(AccountSwitcherCommand.getInstance()),
-    SETPROFILE(SetProfileCommand.getInstance()),
-    ADDSPECIFICATION(AddSpecificationCommand.getInstance()),
-    LOGOUT(LogOutCommand.getInstance()),
-    JOBOFFERS(AllJobOffersCommand.getInstance()),
-    JOBOFFERINFO(JobOfferFullInfoCommand.getInstance()),
-    LOCALE(LocalizationCommand.getInstance()),
-    CREATEJOBOFFERVIEW(CreateJobOfferViewCommand.getInstance()),
-    CREATEJOBOFFER(CreateJobOfferCommand.getInstance()),
-    REGISTERVIEW(RegistrationViewCommand.getInstance()),
-    COMPANYPROFILE(CompanyProfileCommand.getInstance()),
-    STUDENTPROFILE(StudentProffileCommand.getInstance()),
-    DELETEJOBOFFER(DeleteJobOfferCommand.getInstance()),
-    ADDJOBOFFERTOSTUDENT(AddJobOfferToStudentProfileCommand.getInstance()),
-    USERINFO(UserInfoCommand.getInstance()),
-    SPECINFO(ShowSpecCoursesCommand.getInstance())
+    //TODO remake to fabric
+    LOGIN(new LoginCommand()),
+    REGISTER(new RegistrationCommand()),
+    DETECTPROFILE(new AccountSwitcherCommand()),
+    SETPROFILE(new SetProfileCommand()),
+    ADDSPECIFICATION(new AddSpecificationCommand()),
+    LOGOUT(new LogOutCommand()),
+    JOBOFFERS(new AllJobOffersCommand()),
+    JOBOFFERINFO(new JobOfferFullInfoCommand()),
+    LOCALE(new LocalizationCommand()),
+    CREATEJOBOFFERVIEW(new CreateJobOfferViewCommand()),
+    CREATEJOBOFFER(new CreateJobOfferCommand()),
+    REGISTERVIEW(new RegistrationViewCommand()),
+    COMPANYPROFILE(new CompanyProfileCommand()),
+    STUDENTPROFILE(new StudentProffileCommand()),
+    DELETEJOBOFFER(new DeleteJobOfferCommand()),
+    ADDJOBOFFERTOSTUDENT(new AddJobOfferToStudentProfileCommand()),
+    USERINFO(new UserInfoCommand()),
+    SPECINFO(new ShowSpecCoursesCommand())
     ;
 
 

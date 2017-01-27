@@ -17,11 +17,7 @@ import javax.swing.text.View;
  * Created by zoer on 20.01.17.
  */
 public class SetProfileCommand implements Command {
-    private static SetProfileCommand instance = new SetProfileCommand();
 
-    public static SetProfileCommand getInstance() {
-        return instance;
-    }
 
     @Override
     public String execute(RequestWrapper req, User user) throws InsufficientPermissionsException, PersistException {
@@ -35,16 +31,14 @@ public class SetProfileCommand implements Command {
                 stp.setCvurl(req.getParameter("cv"));
                 DefaultProfileService.getInstance().createStudentProfile(user.getProfile(),stp);
                 req.getSessionWrapper().setProfileType(ProfileType.STUDENT);
-//                req.getSessionWrapper().setStudentProfile(stp);
-                return ViewJsp.StudentSpace.STUDENT_JSP;
+                return CommandMapping.STUDENTPROFILE.getCommand().execute(req,user);
             case "company":
                 CompanyProfile cmp=new CompanyProfile();
                 cmp.setImgurl(req.getParameter("picture"));
                 cmp.setInfotxt(req.getParameter("text"));
                 DefaultProfileService.getInstance().createCompanyProfile(user.getProfile(),cmp);
-                req.getSessionWrapper().setProfileType(ProfileType.STUDENT);
-//                req.getSessionWrapper().setCompanyProfile(cmp);
-                return ViewJsp.CompanySpace.COMPANY_JSP;
+                req.getSessionWrapper().setProfileType(ProfileType.COMPANY);
+                return CommandMapping.COMPANYPROFILE.getCommand().execute(req,user);
         }
 
         return ViewJsp.UserSpace.CHOOSE_PROFILE_JSP;

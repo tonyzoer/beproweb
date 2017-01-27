@@ -2,7 +2,7 @@
 <html lang="en">
 <!--<![endif]-->
 <%@include file="includes/head.jsp" %>
-
+<%@include file="includes/navbar.jsp" %>
 <body>
 <c:set var="profile" scope="session" value="${sessionScope.user.getProfile().getStudentProfile().get()}"/>
 <c:set var="specifications" scope="session" value="${sessionScope.studentSpecifications}"/>
@@ -19,7 +19,7 @@
     </div>
 </section>
 
-<%@include file="includes/navbar.jsp" %>
+
 
 
 <section id="about">

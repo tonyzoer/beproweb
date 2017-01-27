@@ -16,14 +16,7 @@ import java.util.List;
  * Created by zoer on 22.01.17.
  */
 public class CreateJobOfferViewCommand implements Command {
-    private static CreateJobOfferViewCommand ourInstance = new CreateJobOfferViewCommand();
 
-    public static CreateJobOfferViewCommand getInstance() {
-        return ourInstance;
-    }
-
-    private CreateJobOfferViewCommand() {
-    }
 
     @Override
     public String execute(RequestWrapper req, User user) throws InsufficientPermissionsException, PersistException {
