@@ -32,7 +32,7 @@
                     document.getElementById('specList').appendChild(li);
                     $('#spec option:selected').remove();
                                 "
-                            type="button" class="btn">AddToList
+                            type="button" class="btn"><fmt:message bundle="${bundle}" key="addtolst"/>
                     </button>
                     <br>
 
@@ -41,7 +41,7 @@
                     var li=document.createElement('li');
                     li.appendChild(document.createTextNode(document.getElementById('newSpecInput').value))
                     document.getElementById('specList').appendChild(li);"
-                            type="button" class="btn">AddToList
+                            type="button" class="btn"><fmt:message bundle="${bundle}" key="addtolst"/>
                     </button>
 
                     <input type="text" hidden value="" id="outSpec" name="spec">

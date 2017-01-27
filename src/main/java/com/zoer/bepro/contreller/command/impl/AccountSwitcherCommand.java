@@ -2,6 +2,7 @@ package com.zoer.bepro.contreller.command.impl;
 
 import com.zoer.bepro.contreller.command.Command;
 import com.zoer.bepro.contreller.exeptions.InsufficientPermissionsException;
+import com.zoer.bepro.contreller.util.JspMessagesSetter;
 import com.zoer.bepro.contreller.util.RequestWrapper;
 import com.zoer.bepro.contreller.util.ViewJsp;
 import com.zoer.bepro.model.dao.PersistException;
@@ -9,6 +10,7 @@ import com.zoer.bepro.model.domain.Specifications;
 import com.zoer.bepro.model.domain.User;
 import com.zoer.bepro.model.services.ProfileType;
 import com.zoer.bepro.model.services.impl.DefaultSpecificationService;
+import org.apache.log4j.Logger;
 
 import java.util.List;
 
@@ -17,7 +19,7 @@ import java.util.List;
  */
 public class AccountSwitcherCommand implements Command {
     private static AccountSwitcherCommand instance = new AccountSwitcherCommand();
-
+    private final static Logger logger = Logger.getLogger(AccountSwitcherCommand.class);
     public static AccountSwitcherCommand getInstance() {
         return instance;
     }
@@ -26,7 +28,8 @@ public class AccountSwitcherCommand implements Command {
     public String execute(RequestWrapper req, User user) throws InsufficientPermissionsException, PersistException {
 //        User user = req.getSessionWrapper().getUser();
         if (user == null) {
-            //TODO log
+            logger.debug("Session is overed");
+            JspMessagesSetter.setOutputMessage(req, JspMessagesSetter.JspResult.SESSION_IS_OVVERED);
             return ViewJsp.General.MAIN;
         } else {
             ProfileType prftype = req.getSessionWrapper().getProfileType();

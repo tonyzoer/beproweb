@@ -17,7 +17,7 @@ public class JspMessagesSetter {
     }
 
     public enum JspResult {
-        ID_REMOVED,
+        SESSION_IS_OVVERED;
     }
 
     public static void setOutputError(RequestWrapper req, JspError error) {

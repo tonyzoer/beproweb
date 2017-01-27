@@ -12,7 +12,7 @@
         <div class="row text-center">
             <div class="col-md-12">
 
-                <span class="head-main">Hello, ${profile.getName()}</span>
+                <span class="head-main"><fmt:message bundle="${bundle}" key="hello"/> ${profile.getName()}</span>
 
             </div>
         </div>
@@ -31,7 +31,7 @@
         </div>
         <div class="col-md-6 ">
             <h1>${profile.getName()}</h1>
-            <a href="#" class="btn btn-primary btn-lg">DOWNLOAD MY RESUME</a>
+            <a href="#" class="btn btn-primary btn-lg"><fmt:message bundle="${bundle}" key="downloadcv"/></a>
         </div>
 
 
@@ -48,10 +48,10 @@
                         </c:forEach>
                     </select>
                 </div>
-                <button type="submit">add Specification</button>
+                <button type="submit"><fmt:message bundle="${bundle}" key="addtolst"/></button>
             </form>
             <div class="col-md-12">
-                <h2>MY SKILL SET</h2>
+                <h2><fmt:message bundle="${bundle}" key="mysklset"/></h2>
                 <br/>
 
                     <c:forEach items="${specifications}" var="spec">
