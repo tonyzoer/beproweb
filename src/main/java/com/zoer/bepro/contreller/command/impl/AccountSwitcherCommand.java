@@ -32,12 +32,12 @@ public class AccountSwitcherCommand implements Command {
             ProfileType prftype = req.getSessionWrapper().getProfileType();
             switch (prftype) {
                 case STUDENT:
-                    return CommandMapping.valueOf("STUDENTPROFILE").getCommand().execute(req, user);
+                    return StudentProffileCommand.getInstance().execute(req, user);
                 case NOONE:
                     return ViewJsp.UserSpace.CHOOSE_PROFILE_JSP;
 
                 case COMPANY:
-                    return CommandMapping.valueOf("COMPANYPROFILE").getCommand().execute(req, user);
+                    return CompanyProfileCommand.getInstance().execute(req, user);
 
                 case ADMIN:
                     return ViewJsp.AdminSpace.ADMIN_JSP;

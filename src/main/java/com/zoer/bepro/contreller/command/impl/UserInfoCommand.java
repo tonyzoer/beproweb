@@ -31,15 +31,15 @@ public class UserInfoCommand implements Command {
     @Override
     public String execute(RequestWrapper req, User user) throws InsufficientPermissionsException, PersistException {
         String nick = req.getParameter("nickname");
-        User pageuser = DefaultUserSevice.getInstance().getUser(nick);
-        req.setAttribute("pageuser", pageuser);
-        ProfileType prfltp = DefaultProfileService.getInstance().getProfileType(pageuser.getProfile());
+        User pageUser = DefaultUserSevice.getInstance().getUser(nick);
+        req.setAttribute("pageuser", pageUser);
+        ProfileType prfltp = DefaultProfileService.getInstance().getProfileType(pageUser.getProfile());
 //        req.setAttribute("profiletype", prfltp);
 
         switch (prfltp) {
             case STUDENT:
                 req.setAttribute("type", 1);
-                StudentProfile sp = user.getProfile().getStudentProfile().get();
+                StudentProfile sp = pageUser.getProfile().getStudentProfile().get();
                 req.setAttribute("name", sp.getName());
                 req.setAttribute("spec", DefaultSpecificationService.getInstance().getStudentsSpecifications(sp.getId()));
                 req.setAttribute("cv", sp.getCvurl());
@@ -47,7 +47,7 @@ public class UserInfoCommand implements Command {
             case NOONE:
             case COMPANY:
                 req.setAttribute("type", 2);
-            CompanyProfile cp=user.getProfile().getCompanyProfile().get();
+            CompanyProfile cp=pageUser.getProfile().getCompanyProfile().get();
             req.setAttribute("imgurl",cp.getImgurl());
             req.setAttribute("name",cp.getInfotxt());
             req.setAttribute("joboffers", DefaultJobOffersService.getInstance().getCompanyJobOffers(cp));

@@ -8,6 +8,7 @@
 <body>
 <c:set scope="request" value="${requestScope.courses}" var="courses"/>
 <c:set scope="request" value="${requestScope.spec}" var="spec"/>
+<section>
 <div class="container">
     <div class="col-lg-12 center-block">
         <h2>${spec.getValue()}</h2>
@@ -21,7 +22,7 @@
         </div>
     </div>
 </div>
-
+</section>
 
 
 <%@include file="includes/footer.jsp" %>

@@ -28,6 +28,6 @@ public class DeleteJobOfferCommand implements Command {
         if (user.getProfile().getCompanyProfile().get().getId()==jo.getCompanyId()){
         DefaultJobOffersService.getInstance().delete(jo);
         }
-        return CommandMapping.valueOf("COMPANYPROFILE").getCommand().execute(req,user);
+        return CompanyProfileCommand.getInstance().execute(req,user);
     }
 }

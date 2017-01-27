@@ -10,6 +10,9 @@ public class JspMessagesSetter {
         LOGIN_ALREADY_EXIST,
         FIELD_EMPTY_REQUIRED,
         FIELD_WRONG_DATA,
+        WRONG_EMAIL,
+        WRONG_LOGIN_LENGTH,
+        WRONG_PASSWORD,
         COULDNT_REMOVE_ID;
     }
 

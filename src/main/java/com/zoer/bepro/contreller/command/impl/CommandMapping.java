@@ -26,6 +26,8 @@ public enum CommandMapping {
     SPECINFO(ShowSpecCoursesCommand.getInstance())
     ;
 
+
+
     private Command command;
     CommandMapping(Command instance) {
         this.command = instance;

@@ -56,7 +56,7 @@
 
                     <c:forEach items="${specifications}" var="spec">
                         <a href="/Controller?command=SPECINFO&item=${spec.getId()}"
-                               class="btn-link btn-lg">${spec.getValue()}</a>
+                               class="btn-lg btn-primary btn">${spec.getValue()}</a>
                     </c:forEach>
 
             </div>

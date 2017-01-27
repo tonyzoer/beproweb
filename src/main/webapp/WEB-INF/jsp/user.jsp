@@ -11,7 +11,7 @@
         <c:set scope="request" value="${requestScope.pageuser}" var="pageuser"/>
         <c:set scope="request" value="${requestScope.type}" var="type"/>
         <c:choose>
-            <c:when test="${profiletype==1}">
+            <c:when test="${type==1}">
                 <c:set scope="request" value="${requestScope.name}" var="name"/>
                 <c:set scope="request" value="${requestScope.spec}" var="spec"/>
                 <c:set scope="request" value="${requestScope.cv}" var="cv"/>
@@ -26,10 +26,10 @@
                     </ol>
                 </div>
                 <div class="col-lg-6">
-                    <a href="${cv}" class="btn btn-primary btn-lg"><fmt:message bundle="$bundle" key="downloadcv"/></a>
+                    <a href="${cv}" class="btn btn-primary btn-lg"><fmt:message bundle="${bundle}" key="downloadcv"/></a>
                 </div>
             </c:when>
-            <c:when test="${profiletype==2}">
+            <c:when test="${type==2}">
                 <c:set scope="request" value="${requestScope.imgurl}" var="imgurl"/>
                 <c:set scope="request" value="${requestScope.name}" var="name"/>
                 <c:set scope="request" value="${requestScope.joboffers}" var="joboffers"/>
@@ -48,7 +48,7 @@
                     </c:forEach>
                 </div>
                     </c:when>
-            <c:when test="${profiletype==3}"></c:when>
+            <c:when test="${type==3}"></c:when>
         </c:choose>
     </div>
 </section>
