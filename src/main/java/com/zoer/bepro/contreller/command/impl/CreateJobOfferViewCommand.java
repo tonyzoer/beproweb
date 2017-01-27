@@ -6,7 +6,6 @@ import com.zoer.bepro.contreller.util.RequestWrapper;
 import com.zoer.bepro.contreller.util.ViewJsp;
 import com.zoer.bepro.model.dao.PersistException;
 import com.zoer.bepro.model.domain.Specifications;
-import com.zoer.bepro.model.domain.User;
 import com.zoer.bepro.model.services.ProfileType;
 import com.zoer.bepro.model.services.impl.DefaultSpecificationService;
 
@@ -19,9 +18,9 @@ public class CreateJobOfferViewCommand implements Command {
 
 
     @Override
-    public String execute(RequestWrapper req, User user) throws InsufficientPermissionsException, PersistException {
+    public String execute(RequestWrapper req) throws InsufficientPermissionsException, PersistException {
         if (req.getSessionWrapper().getProfileType()!= ProfileType.COMPANY){
-            return ViewJsp.General.MAIN;
+            throw new InsufficientPermissionsException();
         }
         List<Specifications> spec=DefaultSpecificationService.getInstance().findAll();
         req.setAttribute("specificationList", spec);

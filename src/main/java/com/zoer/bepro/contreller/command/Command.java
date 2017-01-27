@@ -7,6 +7,5 @@ import com.zoer.bepro.model.dao.PersistException;
 import com.zoer.bepro.model.domain.User;
 
 public interface Command {
-    String execute(RequestWrapper req,
-                   User user) throws InsufficientPermissionsException, PersistException;
+    String execute(RequestWrapper req) throws InsufficientPermissionsException, PersistException;
 }

@@ -18,7 +18,8 @@ import java.util.List;
 public class AddSpecificationCommand implements Command {
 
     @Override
-    public String execute(RequestWrapper req, User user) throws InsufficientPermissionsException, PersistException {
+    public String execute(RequestWrapper req) throws InsufficientPermissionsException, PersistException {
+        User user=req.getSessionWrapper().getUser();
         String parameter = req.getParameter("item");
         Specifications specification = DefaultSpecificationService.getInstance().getById(Integer.parseInt(parameter.split("--")[0]));
         if(DefaultStudentProfileService.getInstance().addSpecification(specification, user.getProfile().getStudentProfile().get())){
@@ -26,6 +27,6 @@ public class AddSpecificationCommand implements Command {
         studentSpecifications.add(specification);
         req.getSessionWrapper().setSdudentsSpecifications(studentSpecifications);
         }
-        return CommandMapping.STUDENTPROFILE.getCommand().execute(req,user);
+        return CommandMapping.STUDENTPROFILE.getCommand().execute(req);
     }
 }

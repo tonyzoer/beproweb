@@ -22,7 +22,7 @@ import java.util.List;
 public class JobOfferFullInfoCommand implements Command {
 
     @Override
-    public String execute(RequestWrapper req, User user) throws InsufficientPermissionsException, PersistException {
+    public String execute(RequestWrapper req) throws InsufficientPermissionsException, PersistException {
         String jobOfferID = req.getParameter("item");
         JobOffers jobOffer = DefaultJobOffersService.getInstance().getById(Integer.parseInt(jobOfferID));
         List<Specifications> jobOfferSpecification = DefaultSpecificationService.getInstance().getJobOfferSpecifications(jobOffer.getId());
@@ -32,7 +32,7 @@ public class JobOfferFullInfoCommand implements Command {
         req.setAttribute("company", DefaultCompanyProfileService.getInstance().getById(jobOffer.getCompanyId()));
         if (req.getSessionWrapper().getProfileType() == ProfileType.STUDENT) {
             req.setAttribute("student", true);
-            req.setAttribute("alreadyaplied", DefaultJobOffersService.getInstance().existsSTudentJobOffer(user.getProfile().getStudentProfile().get(), jobOffer));
+            req.setAttribute("alreadyaplied", DefaultJobOffersService.getInstance().existsSTudentJobOffer(req.getSessionWrapper().getUser().getProfile().getStudentProfile().get(), jobOffer));
         } else {
             req.setAttribute("student", false);
 

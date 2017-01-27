@@ -7,7 +7,6 @@ import com.zoer.bepro.contreller.util.ViewJsp;
 import com.zoer.bepro.model.dao.PersistException;
 import com.zoer.bepro.model.domain.JobOffers;
 import com.zoer.bepro.model.domain.Specifications;
-import com.zoer.bepro.model.domain.User;
 import com.zoer.bepro.model.services.ProfileType;
 import com.zoer.bepro.model.services.impl.DefaultJobOffersService;
 import com.zoer.bepro.model.services.impl.DefaultSpecificationService;
@@ -21,18 +20,19 @@ public class StudentProffileCommand implements Command {
 
 
     @Override
-    public String execute(RequestWrapper req, User user) throws InsufficientPermissionsException, PersistException {
+    public String execute(RequestWrapper req) throws InsufficientPermissionsException, PersistException {
         ProfileType prftype = req.getSessionWrapper().getProfileType();
-        if (prftype != ProfileType.STUDENT) return ViewJsp.General.MAIN;
+        if (prftype != ProfileType.STUDENT)
+            return ViewJsp.General.MAIN;
         List<Specifications> specificationsStudentList;
         specificationsStudentList = DefaultSpecificationService.getInstance().
-                getStudentsSpecifications(user.getProfile().getStudentProfile().get().getId());
+                getStudentsSpecifications(req.getSessionWrapper().getUser().getProfile().getStudentProfile().get().getId());
         req.getSessionWrapper().setSdudentsSpecifications(specificationsStudentList);
         List<Specifications> specificationsList = DefaultSpecificationService.getInstance().findAll();
         specificationsList.removeAll(specificationsStudentList);
         req.getSessionWrapper().setSpecifications(specificationsList);
-        List<JobOffers> jobOfferss=DefaultJobOffersService.getInstance().getStudentsJobOffers(user.getProfile().getStudentProfile().get());
+        List<JobOffers> jobOfferss = DefaultJobOffersService.getInstance().getStudentsJobOffers(req.getSessionWrapper().getUser().getProfile().getStudentProfile().get());
         req.setAttribute("studentsOffers", jobOfferss);
-            return ViewJsp.StudentSpace.STUDENT_JSP;
+        return ViewJsp.StudentSpace.STUDENT_JSP;
     }
 }

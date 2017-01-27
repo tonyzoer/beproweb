@@ -19,7 +19,7 @@ public class SetProfileCommand implements Command {
 
 
     @Override
-    public String execute(RequestWrapper req, User user) throws InsufficientPermissionsException, PersistException {
+    public String execute(RequestWrapper req) throws InsufficientPermissionsException, PersistException {
         String type=req.getParameter("type");
         switch (type){
             case "student":
@@ -28,16 +28,16 @@ public class SetProfileCommand implements Command {
                 stp.setTel(req.getParameter("tel"));
                 stp.setCountry(req.getParameter("country"));
                 stp.setCvurl(req.getParameter("cv"));
-                DefaultProfileService.getInstance().createStudentProfile(user.getProfile(),stp);
+                DefaultProfileService.getInstance().createStudentProfile(req.getSessionWrapper().getUser().getProfile(),stp);
                 req.getSessionWrapper().setProfileType(ProfileType.STUDENT);
-                return CommandMapping.STUDENTPROFILE.getCommand().execute(req,user);
+                return CommandMapping.STUDENTPROFILE.getCommand().execute(req);
             case "company":
                 CompanyProfile cmp=new CompanyProfile();
                 cmp.setImgurl(req.getParameter("picture"));
                 cmp.setInfotxt(req.getParameter("text"));
-                DefaultProfileService.getInstance().createCompanyProfile(user.getProfile(),cmp);
+                DefaultProfileService.getInstance().createCompanyProfile(req.getSessionWrapper().getUser().getProfile(),cmp);
                 req.getSessionWrapper().setProfileType(ProfileType.COMPANY);
-                return CommandMapping.COMPANYPROFILE.getCommand().execute(req,user);
+                return CommandMapping.COMPANYPROFILE.getCommand().execute(req);
         }
 
         return ViewJsp.UserSpace.CHOOSE_PROFILE_JSP;

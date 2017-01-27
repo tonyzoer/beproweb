@@ -7,7 +7,6 @@ import com.zoer.bepro.contreller.command.impl.*;
  * Created by zoer on 23.01.17.
  */
 public enum CommandMapping {
-    //TODO remake to fabric
     LOGIN(new LoginCommand()),
     REGISTER(new RegistrationCommand()),
     DETECTPROFILE(new AccountSwitcherCommand()),

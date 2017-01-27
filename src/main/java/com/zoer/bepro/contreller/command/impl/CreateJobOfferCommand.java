@@ -25,8 +25,9 @@ public class CreateJobOfferCommand implements Command {
 
 
     @Override
-    public String execute(RequestWrapper req, User user) throws InsufficientPermissionsException, PersistException {
-        if (req.getSessionWrapper().getProfileType() != ProfileType.COMPANY) {
+    public String execute(RequestWrapper req) throws InsufficientPermissionsException, PersistException {
+        User user=req.getSessionWrapper().getUser();
+         if (req.getSessionWrapper().getProfileType() != ProfileType.COMPANY) {
             return ViewJsp.General.MAIN;
         }
         JobOffers jo = new JobOffers();
@@ -57,6 +58,6 @@ public class CreateJobOfferCommand implements Command {
             }
         }
         req.addParameter("item", jo.getId().toString());
-        return CommandMapping.JOBOFFERINFO.getCommand().execute(req, user);
+        return CommandMapping.JOBOFFERINFO.getCommand().execute(req);
     }
 }

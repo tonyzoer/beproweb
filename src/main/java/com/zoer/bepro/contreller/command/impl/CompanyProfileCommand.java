@@ -19,7 +19,8 @@ public class CompanyProfileCommand implements Command {
 
 
     @Override
-    public String execute(RequestWrapper req, User user) throws InsufficientPermissionsException, PersistException {
+    public String execute(RequestWrapper req) throws InsufficientPermissionsException, PersistException {
+        User user=req.getSessionWrapper().getUser();
         ProfileType prftype = req.getSessionWrapper().getProfileType();
         if (prftype != ProfileType.COMPANY) return ViewJsp.General.MAIN;
         List<JobOffers> jobOffers=DefaultJobOffersService.getInstance().getCompanyJobOffers(user.getProfile().getCompanyProfile().get());

@@ -12,11 +12,12 @@ import com.zoer.bepro.model.services.impl.DefaultStudentProfileService;
 
 public class AddJobOfferToStudentProfileCommand implements Command {
     @Override
-    public String execute(RequestWrapper req, User user) throws InsufficientPermissionsException, PersistException {
+    public String execute(RequestWrapper req) throws InsufficientPermissionsException, PersistException {
+        User user=req.getSessionWrapper().getUser();
         JobOffers jo=new JobOffers();
         jo.setId(Integer.parseInt(req.getParameter("jobofferid")));
         DefaultStudentProfileService.getInstance().addJobOffer(user.getProfile().getStudentProfile().get(),jo);
         req.addParameter("item", String.valueOf(jo.getId()));
-        return CommandMapping.valueOf("JOBOFFERINFO").getCommand().execute(req,user);
+        return CommandMapping.JOBOFFERINFO.getCommand().execute(req);
     }
 }

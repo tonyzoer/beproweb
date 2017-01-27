@@ -5,8 +5,6 @@ import com.zoer.bepro.contreller.exeptions.InsufficientPermissionsException;
 import com.zoer.bepro.contreller.util.RequestWrapper;
 import com.zoer.bepro.contreller.util.ViewJsp;
 import com.zoer.bepro.model.dao.PersistException;
-import com.zoer.bepro.model.domain.Specifications;
-import com.zoer.bepro.model.domain.User;
 import com.zoer.bepro.model.services.impl.DefaultCoursesService;
 import com.zoer.bepro.model.services.impl.DefaultSpecificationService;
 
@@ -17,7 +15,7 @@ public class ShowSpecCoursesCommand implements Command {
 
 
     @Override
-    public String execute(RequestWrapper req, User user) throws InsufficientPermissionsException, PersistException {
+    public String execute(RequestWrapper req) throws InsufficientPermissionsException, PersistException {
         Integer specID = Integer.parseInt(req.getParameter("item"));
         req.setAttribute("spec", DefaultSpecificationService.getInstance().getById(specID));
         req.setAttribute("courses",DefaultCoursesService.getInstance().getAllSpecCourses(specID));

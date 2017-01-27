@@ -13,8 +13,8 @@ import com.zoer.bepro.model.domain.User;
 public class RegistrationViewCommand implements Command {
 
     @Override
-    public String execute(RequestWrapper req, User user) throws InsufficientPermissionsException, PersistException {
-        if(user==null)
+    public String execute(RequestWrapper req) throws InsufficientPermissionsException, PersistException {
+        if(req.getSessionWrapper().getUser()==null)
         return ViewJsp.General.REGISTER_JSP;
         else return ViewJsp.General.MAIN;
     }

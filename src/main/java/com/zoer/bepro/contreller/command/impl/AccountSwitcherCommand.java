@@ -19,8 +19,8 @@ public class AccountSwitcherCommand implements Command {
 
 
     @Override
-    public String execute(RequestWrapper req, User user) throws InsufficientPermissionsException, PersistException {
-//        User user = req.getSessionWrapper().getUser();
+    public String execute(RequestWrapper req) throws InsufficientPermissionsException, PersistException {
+        User user = req.getSessionWrapper().getUser();
         if (user == null) {
             logger.debug("Session is overed");
             JspMessagesSetter.setOutputMessage(req, JspMessagesSetter.JspResult.SESSION_IS_OVVERED);
@@ -29,12 +29,12 @@ public class AccountSwitcherCommand implements Command {
             ProfileType prftype = req.getSessionWrapper().getProfileType();
             switch (prftype) {
                 case STUDENT:
-                    return CommandMapping.STUDENTPROFILE.getCommand().execute(req, user);
+                    return CommandMapping.STUDENTPROFILE.getCommand().execute(req);
                 case NOONE:
                     return ViewJsp.UserSpace.CHOOSE_PROFILE_JSP;
 
                 case COMPANY:
-                    return CommandMapping.COMPANYPROFILE.getCommand().execute(req, user);
+                    return CommandMapping.COMPANYPROFILE.getCommand().execute(req);
 
                 case ADMIN:
                     return ViewJsp.AdminSpace.ADMIN_JSP;

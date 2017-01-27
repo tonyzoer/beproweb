@@ -16,7 +16,7 @@ public class LoginCommand implements Command {
 
 
     @Override
-    public String execute(RequestWrapper req, User user) throws InsufficientPermissionsException, PersistException {
+    public String execute(RequestWrapper req) throws InsufficientPermissionsException, PersistException {
         RequestWrapper request;
         User AutentificatedUser = DefaultUserSevice.getInstance().
                 authentication(req.getParameter("uname"),

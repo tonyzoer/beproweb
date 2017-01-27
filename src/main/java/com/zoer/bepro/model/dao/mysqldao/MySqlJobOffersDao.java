@@ -55,7 +55,9 @@ public class MySqlJobOffersDao extends AbstractJDBCDao<JobOffers, Integer> {
         return "call selectlastinsertjoboffer();";
     }
 
-    public String getNewJobOfferSpecificationInsert(){return "call newjobofferspecification(?,?);";}
+    public String getNewJobOfferSpecificationInsert() {
+        return "call newjobofferspecification(?,?);";
+    }
 
     @Override
     protected List<JobOffers> parseResultSet(ResultSet rs) throws PersistException {
@@ -78,7 +80,7 @@ public class MySqlJobOffersDao extends AbstractJDBCDao<JobOffers, Integer> {
     protected void prepareStatementForInsert(PreparedStatement statement, JobOffers object) throws PersistException {
         try {
 
-            statement.setInt(1, object.getCompanyId()!=null?object.getCompanyId():1);
+            statement.setInt(1, object.getCompanyId() != null ? object.getCompanyId() : 1);
             statement.setString(2, object.getDescription());
         } catch (Exception e) {
             throw new PersistException(e);
@@ -103,30 +105,33 @@ public class MySqlJobOffersDao extends AbstractJDBCDao<JobOffers, Integer> {
         try {
             result = getAll(sql);
         } catch (PersistException e) {
-            e.printStackTrace();//TODO remove this
+            logger.debug(e);
         }
         return result;
     }
-    public List<JobOffers> getCompanyJobOffers(CompanyProfile cp){
+
+    public List<JobOffers> getCompanyJobOffers(CompanyProfile cp) {
         try {
-            return getAll("select * from joboffers where companyprofile_idcompanyprofile="+cp.getId()+";");
+            return getAll("select * from joboffers where companyprofile_idcompanyprofile=" + cp.getId() + ";");
         } catch (PersistException e) {
-            e.printStackTrace();
+            logger.debug(e);
         }
         return null;
     }
-    public List<JobOffers> getStudentJobOffers(StudentProfile sp){
+
+    public List<JobOffers> getStudentJobOffers(StudentProfile sp) {
         try {
-            return getAll("call selectallstudentsjoboffers("+sp.getId()+");");
+            return getAll("call selectallstudentsjoboffers(" + sp.getId() + ");");
         } catch (PersistException e) {
-            e.printStackTrace();
+            logger.debug(e);
         }
         return null;
     }
-    public List<Pair<JobOffers,String >> jobOffersWithCompanyNames() throws PersistException {
-        String sql="call jobofferswithCompannyNames();";
-        List<Pair<JobOffers,String >> result = new LinkedList<>();
-        try (Connection connection=MyDataSourceFactory.getMySQLDataSource().getConnection()) {
+
+    public List<Pair<JobOffers, String>> jobOffersWithCompanyNames() throws PersistException {
+        String sql = "call jobofferswithCompannyNames();";
+        List<Pair<JobOffers, String>> result = new LinkedList<>();
+        try (Connection connection = MyDataSourceFactory.getMySQLDataSource().getConnection()) {
             try (PreparedStatement statement = connection.prepareStatement(sql)) {
                 ResultSet rs = statement.executeQuery();
                 try {
@@ -135,39 +140,39 @@ public class MySqlJobOffersDao extends AbstractJDBCDao<JobOffers, Integer> {
                         jo.setId(rs.getInt("idjoboffers"));
                         jo.setCompanyId(rs.getInt("companyprofile_idcompanyprofile"));
                         jo.setDescription(rs.getString("jobofferstext"));
-                        result.add(new Pair<JobOffers,String >(jo,rs.getString("infotxt")));
+                        result.add(new Pair<JobOffers, String>(jo, rs.getString("infotxt")));
                     }
-                } catch (Exception ex) {
-                    throw new PersistException();
+                } catch (Exception e) {
+                    throw new PersistException(e);
                 }
             } catch (Exception e) {
                 throw new PersistException(e);
             }
-        }catch (SQLException e) {
+        } catch (SQLException e) {
             throw new PersistException(e);
         }
         return result;
     }
+
     public void addNewSpecification(JobOffers jo, Specifications spec) throws PersistException {
         try {
-            addManyToManyRowToObj(getNewJobOfferSpecificationInsert(),jo,spec);
+            addManyToManyRowToObj(getNewJobOfferSpecificationInsert(), jo, spec);
         } catch (PersistException e) {
             throw new PersistException(e);
         }
     }
-    public boolean existsSTudentJobOffer(StudentProfile sp, JobOffers jo){
-    try (Connection connection=MyDataSourceFactory.getMySQLDataSource().getConnection()){
-    try (PreparedStatement statement=connection.prepareStatement("SELECT * FROM bepro.studentprofile_has_joboffers where studentprofile_idstudentprofile=? and joboffers_idjoboffers=?;")){
-    statement.setInt(1,sp.getId());
-    statement.setInt(2,jo.getId());
-    ResultSet rs=statement.executeQuery();
 
-            if ((rs.next()))
-            return true;
-    }
-    } catch (SQLException e) {
-        e.printStackTrace();
-    }
-    return false;
+    public boolean existsStudentJobOffer(StudentProfile sp, JobOffers jo) {
+        try (Connection connection = MyDataSourceFactory.getMySQLDataSource().getConnection()) {
+                try (PreparedStatement statement = connection.prepareStatement("call existsstudentjoboffer(?,?);")) {
+                statement.setInt(1, sp.getId());
+                statement.setInt(2, jo.getId());
+                ResultSet rs = statement.executeQuery();
+                return  rs.next();
+            }
+        } catch (SQLException e) {
+            logger.debug(e);
+        }
+        return false;
     }
 }

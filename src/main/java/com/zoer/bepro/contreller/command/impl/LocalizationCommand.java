@@ -10,7 +10,7 @@ import com.zoer.bepro.model.domain.User;
 public class LocalizationCommand implements Command {
 
     @Override
-    public String execute(RequestWrapper req, User user) {
+    public String execute(RequestWrapper req) {
         SessionWrapper sessionWrapper = req.getSessionWrapper(true);
         String language = req.getParameter("language");
         if ("ENG".equals(language)) {

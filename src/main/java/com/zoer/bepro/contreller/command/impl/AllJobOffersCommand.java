@@ -23,7 +23,7 @@ public class AllJobOffersCommand implements Command {
 
 
     @Override
-    public String execute(RequestWrapper req, User user) throws InsufficientPermissionsException, PersistException {
+    public String execute(RequestWrapper req) throws InsufficientPermissionsException, PersistException {
         List<Pair<JobOffers,String>> jobOffersWithCompanyNames=DefaultJobOffersService.getInstance().getJobOffersWithCompanyNames();
         req.setAttribute("alljoboffers",jobOffersWithCompanyNames);
         return ViewJsp.General.JOBOFFERS;

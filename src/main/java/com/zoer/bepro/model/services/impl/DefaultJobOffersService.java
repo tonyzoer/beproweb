@@ -6,7 +6,6 @@ import com.zoer.bepro.model.dao.mysqldao.MySqlDaoFactory;
 import com.zoer.bepro.model.dao.mysqldao.MySqlJobOffersDao;
 import com.zoer.bepro.model.domain.*;
 import com.zoer.bepro.model.services.JobOffersService;
-import com.zoer.bepro.model.services.ServiceFactory;
 import javafx.util.Pair;
 
 import java.util.List;
@@ -64,7 +63,7 @@ public class DefaultJobOffersService extends GenericEntityService<JobOffers> imp
     public boolean existsSTudentJobOffer(StudentProfile sp,JobOffers jo){
         try {
             MySqlJobOffersDao dao= (MySqlJobOffersDao) getDao();
-            return dao.existsSTudentJobOffer(sp,jo);
+            return dao.existsStudentJobOffer(sp,jo);
         } catch (PersistException e) {
             e.printStackTrace();
         }

@@ -21,7 +21,7 @@ import com.zoer.bepro.model.services.impl.DefaultUserSevice;
 public class UserInfoCommand implements Command {
 
     @Override
-    public String execute(RequestWrapper req, User user) throws InsufficientPermissionsException, PersistException {
+    public String execute(RequestWrapper req) throws InsufficientPermissionsException, PersistException {
         String nick = req.getParameter("nickname");
         User pageUser = DefaultUserSevice.getInstance().getUser(nick);
         req.setAttribute("pageuser", pageUser);

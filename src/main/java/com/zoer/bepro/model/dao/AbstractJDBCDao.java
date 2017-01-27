@@ -22,7 +22,7 @@ import java.util.List;
  * @param <PK> pk key type (for future can be not only int)
  */
 public abstract class AbstractJDBCDao<T extends Identified<PK>, PK extends Integer> implements GenericDao<T, PK> {
-    private final static Logger logger = Logger.getLogger(AbstractJDBCDao.class);
+    protected final static Logger logger = Logger.getLogger(AbstractJDBCDao.class);
     private boolean rollback = false;
 
     public AbstractJDBCDao() {
