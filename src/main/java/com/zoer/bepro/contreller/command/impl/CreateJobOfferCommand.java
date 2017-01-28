@@ -13,6 +13,7 @@ import com.zoer.bepro.model.domain.User;
 import com.zoer.bepro.model.services.ProfileType;
 import com.zoer.bepro.model.services.impl.DefaultJobOfferTextService;
 import com.zoer.bepro.model.services.impl.DefaultJobOffersService;
+import com.zoer.bepro.model.services.impl.DefaultServiceFactory;
 import com.zoer.bepro.model.services.impl.DefaultSpecificationService;
 
 import java.util.Arrays;
@@ -33,18 +34,18 @@ public class CreateJobOfferCommand implements Command {
         JobOffers jo = new JobOffers();
         jo.setDescription(req.getParameter("name"));
         jo.setCompanyId(user.getProfile().getCompanyProfile().get().getId());
-        jo = DefaultJobOffersService.getInstance().insert(jo);
+        jo = DefaultServiceFactory.getInstance().getDefaultJobOffersService().insert(jo);
         JobOfferText jot = new JobOfferText();
         jot.setId(jo.getId());
         jot.setText(req.getParameter("textinfo"));
-        DefaultJobOfferTextService.getInstance().update(jot);
+        DefaultServiceFactory.getInstance().getDefaultJobOfferTextService().update(jot);
         String specifications = req.getParameter("spec");
         if (specifications != "") {
             List<String> specArr = Arrays.asList(specifications.split(","));
             for (String specId : specArr) {
                 Specifications spec = new Specifications();
                 spec.setId(Integer.parseInt(specId.split("--")[0]));
-                DefaultJobOffersService.getInstance().addSpecificationToJobOffer(jo, spec);
+                DefaultServiceFactory.getInstance().getDefaultJobOffersService().addSpecificationToJobOffer(jo, spec);
             }
         }
         String newSpecifications = req.getParameter("newspec");
@@ -53,8 +54,8 @@ public class CreateJobOfferCommand implements Command {
             for (String newSpec : newSpecArr) {
                 Specifications spec = new Specifications();
                 spec.setValue(newSpec);
-                spec = DefaultSpecificationService.getInstance().insert(spec);
-                DefaultJobOffersService.getInstance().addSpecificationToJobOffer(jo, spec);
+                spec = DefaultServiceFactory.getInstance().getDefaultSpecificationService().insert(spec);
+                DefaultServiceFactory.getInstance().getDefaultJobOffersService().addSpecificationToJobOffer(jo, spec);
             }
         }
         req.addParameter("item", jo.getId().toString());

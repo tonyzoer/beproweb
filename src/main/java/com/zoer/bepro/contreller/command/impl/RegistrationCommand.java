@@ -8,6 +8,7 @@ import com.zoer.bepro.contreller.util.RequestWrapper;
 import com.zoer.bepro.contreller.util.ViewJsp;
 import com.zoer.bepro.model.dao.PersistException;
 import com.zoer.bepro.model.domain.User;
+import com.zoer.bepro.model.services.impl.DefaultServiceFactory;
 import com.zoer.bepro.model.services.impl.DefaultUserSevice;
 import com.zoer.bepro.utils.RegisterVerifier;
 
@@ -34,7 +35,7 @@ public class RegistrationCommand implements Command {
             JspMessagesSetter.setOutputError(req, JspMessagesSetter.JspError.WRONG_PASSWORD,"password is invalid");
             return CommandMapping.REGISTERVIEW.getCommand().execute(req);
         }
-        user1= DefaultUserSevice.getInstance().insert(user1);
+        user1= DefaultServiceFactory.getInstance().getDefaultUserSevice().insert(user1);
         if (user1!=null){
             return ViewJsp.UserSpace.REG_THANK;
         } else{

@@ -9,6 +9,7 @@ import com.zoer.bepro.model.domain.JobOffers;
 import com.zoer.bepro.model.domain.User;
 import com.zoer.bepro.model.services.ProfileType;
 import com.zoer.bepro.model.services.impl.DefaultJobOffersService;
+import com.zoer.bepro.model.services.impl.DefaultServiceFactory;
 
 import java.util.List;
 
@@ -23,7 +24,7 @@ public class CompanyProfileCommand implements Command {
         User user=req.getSessionWrapper().getUser();
         ProfileType prftype = req.getSessionWrapper().getProfileType();
         if (prftype != ProfileType.COMPANY) return ViewJsp.General.MAIN;
-        List<JobOffers> jobOffers=DefaultJobOffersService.getInstance().getCompanyJobOffers(user.getProfile().getCompanyProfile().get());
+        List<JobOffers> jobOffers= DefaultServiceFactory.getInstance().getDefaultJobOffersService().getCompanyJobOffers(user.getProfile().getCompanyProfile().get());
         req.setAttribute("joboffers",jobOffers);
         return ViewJsp.CompanySpace.COMPANY_JSP;
     }

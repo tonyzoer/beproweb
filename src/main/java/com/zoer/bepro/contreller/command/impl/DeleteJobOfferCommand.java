@@ -7,6 +7,7 @@ import com.zoer.bepro.contreller.util.RequestWrapper;
 import com.zoer.bepro.model.dao.PersistException;
 import com.zoer.bepro.model.domain.JobOffers;
 import com.zoer.bepro.model.services.impl.DefaultJobOffersService;
+import com.zoer.bepro.model.services.impl.DefaultServiceFactory;
 
 /**
  * Created by zoer on 25.01.17.
@@ -16,9 +17,9 @@ public class DeleteJobOfferCommand implements Command {
 
     @Override
     public String execute(RequestWrapper req) throws InsufficientPermissionsException, PersistException {
-        JobOffers jo=DefaultJobOffersService.getInstance().getById(Integer.parseInt(req.getParameter("item")));
+        JobOffers jo= DefaultServiceFactory.getInstance().getDefaultJobOffersService().getById(Integer.parseInt(req.getParameter("item")));
         if (req.getSessionWrapper().getUser().getProfile().getCompanyProfile().get().getId()==jo.getCompanyId()){
-        DefaultJobOffersService.getInstance().delete(jo);
+            DefaultServiceFactory.getInstance().getDefaultJobOffersService().delete(jo);
         }
         return CommandMapping.COMPANYPROFILE.getCommand().execute(req);
     }

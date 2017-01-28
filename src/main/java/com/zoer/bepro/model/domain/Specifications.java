@@ -37,4 +37,8 @@ public class Specifications implements Identified<Integer> {
     public void setId(Integer id) {
         this.id = id;
     }
+    @Override
+    public boolean equals(Object s){
+        return  (((Specifications) s).getId().equals(this.getId()));
+    }
 }

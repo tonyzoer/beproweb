@@ -11,6 +11,7 @@ import com.zoer.bepro.model.domain.StudentProfile;
 import com.zoer.bepro.model.domain.User;
 import com.zoer.bepro.model.services.ProfileType;
 import com.zoer.bepro.model.services.impl.DefaultProfileService;
+import com.zoer.bepro.model.services.impl.DefaultServiceFactory;
 
 /**
  * Created by zoer on 20.01.17.
@@ -28,14 +29,14 @@ public class SetProfileCommand implements Command {
                 stp.setTel(req.getParameter("tel"));
                 stp.setCountry(req.getParameter("country"));
                 stp.setCvurl(req.getParameter("cv"));
-                DefaultProfileService.getInstance().createStudentProfile(req.getSessionWrapper().getUser().getProfile(),stp);
+                DefaultServiceFactory.getInstance().getDefaultProfileService().createStudentProfile(req.getSessionWrapper().getUser().getProfile(),stp);
                 req.getSessionWrapper().setProfileType(ProfileType.STUDENT);
                 return CommandMapping.STUDENTPROFILE.getCommand().execute(req);
             case "company":
                 CompanyProfile cmp=new CompanyProfile();
                 cmp.setImgurl(req.getParameter("picture"));
                 cmp.setInfotxt(req.getParameter("text"));
-                DefaultProfileService.getInstance().createCompanyProfile(req.getSessionWrapper().getUser().getProfile(),cmp);
+                DefaultServiceFactory.getInstance().getDefaultProfileService().createCompanyProfile(req.getSessionWrapper().getUser().getProfile(),cmp);
                 req.getSessionWrapper().setProfileType(ProfileType.COMPANY);
                 return CommandMapping.COMPANYPROFILE.getCommand().execute(req);
         }

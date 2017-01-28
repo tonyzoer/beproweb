@@ -11,6 +11,7 @@ import com.zoer.bepro.model.domain.Specifications;
 import com.zoer.bepro.model.domain.User;
 import com.zoer.bepro.model.services.impl.DefaultCompanyProfileService;
 import com.zoer.bepro.model.services.impl.DefaultJobOffersService;
+import com.zoer.bepro.model.services.impl.DefaultServiceFactory;
 import javafx.util.Pair;
 
 import java.util.ArrayList;
@@ -24,7 +25,7 @@ public class AllJobOffersCommand implements Command {
 
     @Override
     public String execute(RequestWrapper req) throws InsufficientPermissionsException, PersistException {
-        List<Pair<JobOffers,String>> jobOffersWithCompanyNames=DefaultJobOffersService.getInstance().getJobOffersWithCompanyNames();
+        List<Pair<JobOffers,String>> jobOffersWithCompanyNames= DefaultServiceFactory.getInstance().getDefaultJobOffersService().getJobOffersWithCompanyNames();
         req.setAttribute("alljoboffers",jobOffersWithCompanyNames);
         return ViewJsp.General.JOBOFFERS;
     }

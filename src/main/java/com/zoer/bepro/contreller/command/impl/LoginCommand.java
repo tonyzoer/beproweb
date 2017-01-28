@@ -18,12 +18,12 @@ public class LoginCommand implements Command {
     @Override
     public String execute(RequestWrapper req) throws InsufficientPermissionsException, PersistException {
         RequestWrapper request;
-        User AutentificatedUser = DefaultUserSevice.getInstance().
+        User AutentificatedUser = DefaultServiceFactory.getInstance().getDefaultUserSevice().
                 authentication(req.getParameter("uname"),
                         req.getParameter("pass"));
         if (AutentificatedUser != null) {
             req.getSessionWrapper().setUser(AutentificatedUser);
-            req.getSessionWrapper().setProfileType(DefaultProfileService.getInstance().getProfileType(AutentificatedUser.getProfile()));
+            req.getSessionWrapper().setProfileType(DefaultServiceFactory.getInstance().getDefaultProfileService().getProfileType(AutentificatedUser.getProfile()));
         }
         return ViewJsp.General.MAIN;
 

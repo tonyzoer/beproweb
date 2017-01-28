@@ -9,13 +9,7 @@ import com.zoer.bepro.model.domain.JobOfferText;
  * Created by zoer on 24.01.17.
  */
 public class DefaultJobOfferTextService extends GenericEntityService<JobOfferText> {
-    private static DefaultJobOfferTextService ourInstance = new DefaultJobOfferTextService();
-
-    public static DefaultJobOfferTextService getInstance() {
-        return ourInstance;
-    }
-
-    private DefaultJobOfferTextService() {
+    DefaultJobOfferTextService() {
     }
 
     @Override

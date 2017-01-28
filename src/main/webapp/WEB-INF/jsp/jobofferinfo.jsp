@@ -56,6 +56,20 @@
             </c:if>
         </div>
     </div>
+    <c:if test="${not empty requestScope.students}">
+        <c:set scope="request" value="${requestScope.students}" var="students"/>
+    <div class="col-md-12">
+    <c:forEach items="${students}" var="studi">
+        <div class="col-lg-6 col-md-12 bg-info center-block">
+            <h3>${studi.getProfile().getStudentProfile().get().getName()}</h3>
+            <form action="/Controller" method="get">
+                <INPUT hidden name="command" value="USERINFO">
+                <button name="nickname" value="${studi.getNickname()}"><fmt:message bundle="${bundle}" key="moreinfo"/></button>
+            </form>
+        </div>
+    </c:forEach>
+    </div>
+    </c:if>
 </section>
 <%@include file="includes/footer.jsp" %>
 <%@include file="includes/jscripts.jsp" %>

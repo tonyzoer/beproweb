@@ -7,6 +7,7 @@ import com.zoer.bepro.contreller.util.RequestWrapper;
 import com.zoer.bepro.model.dao.PersistException;
 import com.zoer.bepro.model.domain.JobOffers;
 import com.zoer.bepro.model.domain.User;
+import com.zoer.bepro.model.services.impl.DefaultServiceFactory;
 import com.zoer.bepro.model.services.impl.DefaultStudentProfileService;
 
 
@@ -16,7 +17,7 @@ public class AddJobOfferToStudentProfileCommand implements Command {
         User user=req.getSessionWrapper().getUser();
         JobOffers jo=new JobOffers();
         jo.setId(Integer.parseInt(req.getParameter("jobofferid")));
-        DefaultStudentProfileService.getInstance().addJobOffer(user.getProfile().getStudentProfile().get(),jo);
+        DefaultServiceFactory.getInstance().getDefaultStudentProfileService().addJobOffer(user.getProfile().getStudentProfile().get(),jo);
         req.addParameter("item", String.valueOf(jo.getId()));
         return CommandMapping.JOBOFFERINFO.getCommand().execute(req);
     }

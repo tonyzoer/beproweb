@@ -18,12 +18,10 @@ import java.util.List;
  * Created by zoer on 20.01.17.
  */
 public class DefaultSpecificationService extends GenericEntityService<Specifications> implements SpecificationsService {
-    public static DefaultSpecificationService getInstance() {
-        return instance;
+    DefaultSpecificationService() {
     }
 
     private final static Logger logger = Logger.getLogger(DefaultSpecificationService.class);
-    private static DefaultSpecificationService instance = new DefaultSpecificationService();
 
     @Override
     AbstractJDBCDao<Specifications, Integer> getDao() throws PersistException {
@@ -60,7 +58,7 @@ public class DefaultSpecificationService extends GenericEntityService<Specificat
             specc.setCoursesList(MyCourseraApi.firstNCoursesByName(spec.getValue()));
             for (Courses cou : specc.getCoursesList()) {
                 cou.setSpecId(specc.getId());
-                DefaultCoursesService.getInstance().insert(cou);
+              DefaultServiceFactory.getInstance().getDefaultCoursesService().insert(cou);
 
             }
         } catch (PersistException e) {

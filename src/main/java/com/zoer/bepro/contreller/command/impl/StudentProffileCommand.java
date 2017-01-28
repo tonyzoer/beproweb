@@ -9,6 +9,7 @@ import com.zoer.bepro.model.domain.JobOffers;
 import com.zoer.bepro.model.domain.Specifications;
 import com.zoer.bepro.model.services.ProfileType;
 import com.zoer.bepro.model.services.impl.DefaultJobOffersService;
+import com.zoer.bepro.model.services.impl.DefaultServiceFactory;
 import com.zoer.bepro.model.services.impl.DefaultSpecificationService;
 
 import java.util.List;
@@ -25,13 +26,13 @@ public class StudentProffileCommand implements Command {
         if (prftype != ProfileType.STUDENT)
             return ViewJsp.General.MAIN;
         List<Specifications> specificationsStudentList;
-        specificationsStudentList = DefaultSpecificationService.getInstance().
+        specificationsStudentList = DefaultServiceFactory.getInstance().getDefaultSpecificationService().
                 getStudentsSpecifications(req.getSessionWrapper().getUser().getProfile().getStudentProfile().get().getId());
         req.getSessionWrapper().setSdudentsSpecifications(specificationsStudentList);
-        List<Specifications> specificationsList = DefaultSpecificationService.getInstance().findAll();
+        List<Specifications> specificationsList = DefaultServiceFactory.getInstance().getDefaultSpecificationService().findAll();
         specificationsList.removeAll(specificationsStudentList);
         req.getSessionWrapper().setSpecifications(specificationsList);
-        List<JobOffers> jobOfferss = DefaultJobOffersService.getInstance().getStudentsJobOffers(req.getSessionWrapper().getUser().getProfile().getStudentProfile().get());
+        List<JobOffers> jobOfferss = DefaultServiceFactory.getInstance().getDefaultJobOffersService().getStudentsJobOffers(req.getSessionWrapper().getUser().getProfile().getStudentProfile().get());
         req.setAttribute("studentsOffers", jobOfferss);
         return ViewJsp.StudentSpace.STUDENT_JSP;
     }

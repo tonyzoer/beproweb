@@ -24,13 +24,13 @@
                         <c:out value="${joboffer.getDescription()}"/>
                         <form action="/Controller" method="post">
                             <INPUT type="hidden" name="command" value="DELETEJOBOFFER"/>
-                            <input type="submit" class="btn btn-primary btn-lg pull-right" name="item"
-                           value="${joboffer.getId()}" placeholder=<fmt:message key="delete" bundle="${bundle}"/>/>
+                            <button type="submit" class="btn btn-primary btn-lg pull-right" name="item"
+                                    value="${joboffer.getId()}"><fmt:message key="delete" bundle="${bundle}"/></button>
                         </form>
                         <form action="/Controller" method="get">
                             <INPUT type="hidden" name="command" value="JOBOFFERINFO"/>
-                            <input type="submit" class="btn btn-primary btn-lg pull-right" name="item"
-                               value="${joboffer.getId()}"><fmt:message key="moreinfo" bundle="${bundle}" var="moreinfo"/></input>
+                            <button type="submit" class="btn btn-primary btn-lg pull-right" name="item"
+                               value="${joboffer.getId()}"><fmt:message key="moreinfo" bundle="${bundle}"/></button>
                         </form>
 
                     </div>

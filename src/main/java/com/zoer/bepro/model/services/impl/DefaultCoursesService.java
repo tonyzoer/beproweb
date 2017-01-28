@@ -15,13 +15,12 @@ import java.util.List;
 /**
  * Created by Zoer on 13.01.2017.
  */
-public class DefaultCoursesService extends  GenericEntityService<Courses> {
-        private static DefaultCoursesService instance=new DefaultCoursesService();
-private final static Logger logger = Logger.getLogger(DefaultCoursesService.class);
-    public static DefaultCoursesService getInstance() {
-        return instance;
+public class DefaultCoursesService extends GenericEntityService<Courses> {
+
+    DefaultCoursesService() {
     }
 
+    private final static Logger logger = Logger.getLogger(DefaultCoursesService.class);
     @Override
     AbstractJDBCDao<Courses, Integer> getDao() throws PersistException {
         return (AbstractJDBCDao<Courses, Integer>) MySqlDaoFactory.getInstance().getDao(Courses.class);
@@ -30,7 +29,7 @@ private final static Logger logger = Logger.getLogger(DefaultCoursesService.clas
 
     public List<Courses> getAllSpecCourses(Integer specId) {
         try {
-            MySqlCoursesDao dao= (MySqlCoursesDao) getDao();
+            MySqlCoursesDao dao = (MySqlCoursesDao) getDao();
             return dao.getAllBySpec(specId);
         } catch (PersistException e) {
             logger.debug(e);

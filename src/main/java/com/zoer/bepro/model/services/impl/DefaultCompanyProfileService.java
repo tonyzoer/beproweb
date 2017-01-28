@@ -11,10 +11,9 @@ import com.zoer.bepro.model.services.ServiceFactory;
  * Created by Zoer on 13.01.2017.
  */
 public class DefaultCompanyProfileService extends GenericEntityService<CompanyProfile> {
-    static private DefaultCompanyProfileService instance=new DefaultCompanyProfileService();
 
-    static public DefaultCompanyProfileService getInstance() {
-        return instance;
+
+    DefaultCompanyProfileService() {
     }
 
     @Override

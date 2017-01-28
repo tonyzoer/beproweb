@@ -125,4 +125,7 @@ public class MySqlStudentProfileDao extends AbstractJDBCDao<StudentProfile, Inte
             throw new PersistException(e);
         }
     }
+    public List<StudentProfile> allStudentsByJobOffer(int jobid) throws PersistException {
+        return getAll("call selectallstudentsbyjoboffer("+jobid+");");
+    }
 }

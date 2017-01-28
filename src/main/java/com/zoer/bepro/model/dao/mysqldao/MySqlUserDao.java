@@ -2,7 +2,9 @@ package com.zoer.bepro.model.dao.mysqldao;
 
 import com.zoer.bepro.model.dao.AbstractJDBCDao;
 import com.zoer.bepro.model.dao.PersistException;
+import com.zoer.bepro.model.domain.CompanyProfile;
 import com.zoer.bepro.model.domain.Profile;
+import com.zoer.bepro.model.domain.StudentProfile;
 import com.zoer.bepro.model.domain.User;
 
 import java.sql.Connection;
@@ -99,6 +101,12 @@ public class MySqlUserDao extends AbstractJDBCDao<User, Integer> {
         return getBy("call selectuserbynickoremail(?)",s);
     }
 
+    public  User getByProfile(StudentProfile sp) throws PersistException {
+    return getBy("select * from user join profile on idprofile=iduser where studentprofile_idstudentprofile=?;",sp.getId().toString());
+    }
+    public  User getByProfile(CompanyProfile cp) throws PersistException {
+return getBy("select * from user join profile on idprofile=iduser where companyprofile_idcompanyprofile=?;",cp.getId().toString());
+    }
     private class PersistsUser extends User {
         public void setId(int id) {
             super.setId(id);

@@ -13,11 +13,9 @@ import org.apache.log4j.Logger;
  * Created by Zoer on 13.01.2017.
  */
 public class DefaultProfileService extends GenericEntityService<Profile> implements ProfileServices {
-    private static DefaultProfileService instance = new DefaultProfileService();
-
-    public static DefaultProfileService getInstance() {
-        return instance;
+    DefaultProfileService() {
     }
+
     private final static Logger logger = Logger.getLogger(DefaultProfileService.class);
     @Override
     AbstractJDBCDao<Profile, Integer> getDao() throws PersistException {
@@ -43,22 +41,22 @@ public class DefaultProfileService extends GenericEntityService<Profile> impleme
 
     @Override
     public void createStudentProfile(Profile prfl, StudentProfile studentProfile) throws PersistException {
-        StudentProfile studentProfilet = DefaultStudentProfileService.getInstance().insert(studentProfile);
+        StudentProfile studentProfilet = DefaultServiceFactory.getInstance().getDefaultStudentProfileService().insert(studentProfile);
         prfl.setStudentProfile(studentProfilet);
-        getInstance().update(prfl);
+        update(prfl);
     }
 
     @Override
     public void createCompanyProfile(Profile prfl, CompanyProfile companyProfile) throws PersistException {
-        CompanyProfile companyProfilet = DefaultCompanyProfileService.getInstance().insert(companyProfile);
+        CompanyProfile companyProfilet = DefaultServiceFactory.getInstance().getDefaultCompanyProfileService().insert(companyProfile);
         prfl.setCompanyProfile(companyProfilet);
-        getInstance().update(prfl);
+        update(prfl);
     }
 
     @Override
     public void createAdminProfile(Profile prfl, AdminProfile adminProfile) throws PersistException {
         AdminProfile adminProfilet=DefaultAdminProfileService.getInstance().insert(adminProfile);
         prfl.setAdminProfile(adminProfilet);
-        getInstance().update(prfl);
+        update(prfl);
     }
 }

@@ -19,7 +19,7 @@
                 <div class="col-lg-6">
                     <h2>SKILL SET</h2>
                     <ol>
-                        <c:forEach items="${jobOfferSpecification}" var="speci">
+                        <c:forEach items="${spec}" var="speci">
                             <li><a href="/Controller?command=SPECINFO&item=${speci.getId()}"
                                    class="btn-link">${speci.getValue()}</a></li>
                         </c:forEach>

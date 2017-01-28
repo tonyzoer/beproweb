@@ -14,11 +14,7 @@ import java.util.List;
  * Created by Zoer on 13.01.2017.
  */
 public class DefaultJobOffersService extends GenericEntityService<JobOffers> implements JobOffersService{
-    private static DefaultJobOffersService instance=new DefaultJobOffersService();
 
-    public static DefaultJobOffersService getInstance() {
-        return instance;
-    }
     @Override
     AbstractJDBCDao<JobOffers, Integer> getDao() throws PersistException {
         return (AbstractJDBCDao<JobOffers, Integer>) MySqlDaoFactory.getInstance().getDao(JobOffers.class);
@@ -70,4 +66,6 @@ public class DefaultJobOffersService extends GenericEntityService<JobOffers> imp
         return false;
     }
 
+    DefaultJobOffersService() {
+    }
 }

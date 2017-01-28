@@ -3,19 +3,17 @@ package com.zoer.bepro.model.services.impl;
 import com.zoer.bepro.model.dao.PersistException;
 import com.zoer.bepro.model.dao.mysqldao.MySqlDaoFactory;
 import com.zoer.bepro.model.dao.mysqldao.MySqlUserDao;
+import com.zoer.bepro.model.domain.CompanyProfile;
+import com.zoer.bepro.model.domain.StudentProfile;
 import com.zoer.bepro.model.domain.User;
 import com.zoer.bepro.model.services.UserService;
 import org.apache.log4j.Logger;
 
 
 public class DefaultUserSevice extends GenericEntityService<User> implements UserService {
-    private static final DefaultUserSevice instance = new DefaultUserSevice();
     private final static Logger logger = Logger.getLogger(DefaultUserSevice.class);
-    private DefaultUserSevice() {
-    }
 
-    public static DefaultUserSevice getInstance() {
-        return instance;
+    DefaultUserSevice() {
     }
 
     @Override
@@ -46,5 +44,24 @@ public class DefaultUserSevice extends GenericEntityService<User> implements Use
         }
         return null;
     }
+    public User getUser(StudentProfile profile){
+        try {
+            User user = getDao().getByProfile(profile);
+            return user;
+        } catch (PersistException e) {
+            logger.debug(e);
+        }
+        return null;
+    }
+    public User getUser(CompanyProfile profile){
+        try {
+            User user = getDao().getByProfile(profile);
+            return user;
+        } catch (PersistException e) {
+            logger.debug(e);
+        }
+        return null;
+    }
+
 
 }

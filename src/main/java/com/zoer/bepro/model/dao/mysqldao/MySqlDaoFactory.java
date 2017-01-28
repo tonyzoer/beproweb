@@ -14,7 +14,7 @@ public class MySqlDaoFactory implements DaoFactory{
     private DataSource ds = MyDataSourceFactory.getMySQLDataSource();
     private MySqlDaoFactory() {
 
-        TreeMap<String, Integer> tre;
+
         creators = new HashMap<Class, DaoCreator>();
         creators.put(User.class, new DaoCreator() {
             @Override
