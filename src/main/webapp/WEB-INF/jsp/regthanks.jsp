@@ -11,9 +11,13 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 
-<%@include file="includes/head.jsp"%>
+<head>
+    <%@include file="includes/head.jsp"%>
+    <%@include file="includes/navbar.jsp"%>
+    <title>Thanks</title>
+</head>
 <body>
-<%@include file="includes/navbar.jsp"%>
+
 <section>
 <div style="text-align: center; font-size: 40px;" class="col-md-6"><fmt:message key="regthank" bundle="${bundle}"/>
 </b>

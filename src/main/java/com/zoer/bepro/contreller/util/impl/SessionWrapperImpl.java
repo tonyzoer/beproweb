@@ -20,6 +20,7 @@ public class SessionWrapperImpl implements SessionWrapper {
 
     @Override
     public void invalidate() {
+        if(session!=null)
         session.invalidate();
     }
 
@@ -48,25 +49,6 @@ public class SessionWrapperImpl implements SessionWrapper {
         return (ProfileType) session.getAttribute("profileType");
     }
 
-    @Override
-    public void setStudentProfile(StudentProfile sp) {
-    session.setAttribute("studentProfile",sp);
-    }
-
-    @Override
-    public StudentProfile getStudentProfile() {
-        return session==null?null:(StudentProfile)session.getAttribute("studentProfile");
-    }
-
-    @Override
-    public void setCompanyProfile(CompanyProfile cp) {
-        session.setAttribute("companyProfile",cp);
-    }
-
-    @Override
-    public CompanyProfile getCompanyProfile() {
-        return session==null?null:(CompanyProfile) session.getAttribute("companyProfile");
-    }
 
     @Override
     public void setSdudentsSpecifications(List<Specifications> lst) {

@@ -15,7 +15,7 @@ public class AddJobOfferToStudentProfileCommand implements Command {
     public String execute(RequestWrapper req) throws InsufficientPermissionsException, PersistException {
         User user=req.getSessionWrapper().getUser();
         JobOffers jo=new JobOffers();
-        jo.setId(Integer.parseInt(req.getParameter("jobofferid")));
+        jo.setId(Integer.parseInt(req.getParameter("item")));
         DefaultServiceFactory.getInstance().getDefaultStudentProfileService().addJobOffer(user.getProfile().getStudentProfile().get(),jo);
         req.addParameter("item", String.valueOf(jo.getId()));
         return CommandMapping.JOBOFFERINFO.getCommand().execute(req);

@@ -77,7 +77,7 @@ public class MySqlCoursesDao extends AbstractJDBCDao<Courses, Integer> {
         try {
             statement.setString(1, object.getUrl());
             statement.setString(2, object.getSpecName());
-            statement.setInt(3, object.getSpecId()!=null?object.getSpecId():1);
+            statement.setInt(3, object.getSpecId() != null ? object.getSpecId() : 1);
         } catch (Exception e) {
             throw new PersistException(e);
         }
@@ -97,11 +97,11 @@ public class MySqlCoursesDao extends AbstractJDBCDao<Courses, Integer> {
     }
 
     public List<Courses> getAllBySpec(Integer specId) {
-        String sql="select *from courses where specifications_idspecifications=?";
-        try(Connection connection = MyDataSourceFactory.getMySQLDataSource().getConnection()) {
-            try(PreparedStatement statement=connection.prepareStatement(sql)){
-                statement.setInt(1,specId);
-                ResultSet rs=statement.executeQuery();
+        String sql = "select *from courses where specifications_idspecifications=?";
+        try (Connection connection = MyDataSourceFactory.getMySQLDataSource().getConnection()) {
+            try (PreparedStatement statement = connection.prepareStatement(sql)) {
+                statement.setInt(1, specId);
+                ResultSet rs = statement.executeQuery();
                 return parseResultSet(rs);
             } catch (PersistException e) {
                 e.printStackTrace();
@@ -111,13 +111,14 @@ public class MySqlCoursesDao extends AbstractJDBCDao<Courses, Integer> {
         }
         return null;
     }
-    public Map<Courses,String> getAllStudentsSpecCourses(Integer specId, Integer studentId) {
-        String sql="call studentssavedcourseswithimages(?,?);";
-        try(Connection connection = MyDataSourceFactory.getMySQLDataSource().getConnection()) {
-            try(PreparedStatement statement=connection.prepareStatement(sql)){
-                statement.setInt(1,specId);
-                statement.setInt(2,studentId);
-                ResultSet rs=statement.executeQuery();
+
+    public Map<Courses, String> getAllStudentsSpecCourses(Integer specId, Integer studentId) {
+        String sql = "call studentssavedcourseswithimages(?,?);";
+        try (Connection connection = MyDataSourceFactory.getMySQLDataSource().getConnection()) {
+            try (PreparedStatement statement = connection.prepareStatement(sql)) {
+                statement.setInt(1, specId);
+                statement.setInt(2, studentId);
+                ResultSet rs = statement.executeQuery();
 
                 return parseResultMap(rs);
             }
@@ -126,12 +127,13 @@ public class MySqlCoursesDao extends AbstractJDBCDao<Courses, Integer> {
         }
         return null;
     }
-    public Map<Courses,String> getAllStudentsSpecCourses(Integer studentId) {
-        String sql="call getallstudentspassedcourses(?);";
-        try(Connection connection = MyDataSourceFactory.getMySQLDataSource().getConnection()) {
-            try(PreparedStatement statement=connection.prepareStatement(sql)){
-                statement.setInt(1,studentId);
-                ResultSet rs=statement.executeQuery();
+
+    public Map<Courses, String> getAllStudentsSpecCourses(Integer studentId) {
+        String sql = "call getallstudentspassedcourses(?);";
+        try (Connection connection = MyDataSourceFactory.getMySQLDataSource().getConnection()) {
+            try (PreparedStatement statement = connection.prepareStatement(sql)) {
+                statement.setInt(1, studentId);
+                ResultSet rs = statement.executeQuery();
                 return parseResultMap(rs);
             }
         } catch (SQLException e) {
@@ -139,34 +141,55 @@ public class MySqlCoursesDao extends AbstractJDBCDao<Courses, Integer> {
         }
         return null;
     }
-    private Map<Courses,String> parseResultMap(ResultSet rs){
-        Map<Courses,String> result = new TreeMap<>();
-            try {
-                while (rs.next()) {
-                    Courses c = new Courses();
-                    c.setId(rs.getInt("idcourses"));
-                    c.setUrl(rs.getString("url"));
-                    c.setSpecName(rs.getString("specname"));
-                    c.setSpecId(rs.getInt("specifications_idspecifications"));
-                    result.put(c,rs.getString("imgurl"));
-                }
-            } catch (SQLException e) {
-                e.printStackTrace();
+
+    private Map<Courses, String> parseResultMap(ResultSet rs) {
+        Map<Courses, String> result = new TreeMap<>();
+        try {
+            while (rs.next()) {
+                Courses c = new Courses();
+                c.setId(rs.getInt("idcourses"));
+                c.setUrl(rs.getString("url"));
+                c.setSpecName(rs.getString("specname"));
+                c.setSpecId(rs.getInt("specifications_idspecifications"));
+                result.put(c, rs.getString("imgurl"));
             }
-            return result;
-        }
-    public boolean insertCourseToStudent(Integer courseId,Integer studentId,String imgurl){
-        String sql="call addstudentscourse(?,?,?);";
-        try(Connection connection=MyDataSourceFactory.getMySQLDataSource().getConnection()){
-        try(PreparedStatement preparedStatement=connection.prepareStatement(sql)){
-            preparedStatement.setInt(1,courseId);
-            preparedStatement.setInt(2,studentId);
-            preparedStatement.setString(3,imgurl);
-            preparedStatement.execute();
-        }
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.debug(e);
         }
-        return false;
+        return result;
+    }
+
+    public boolean insertCourseToStudent(Integer courseId, Integer studentId, String imgurl) {
+        String sql = "call addstudentscourse(?,?,?);";
+        try (Connection connection = MyDataSourceFactory.getMySQLDataSource().getConnection()) {
+            try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+                preparedStatement.setInt(1, courseId);
+                preparedStatement.setInt(2, studentId);
+                preparedStatement.setString(3, imgurl);
+                preparedStatement.execute();
+                return true;
+            }
+        } catch (SQLException e) {
+            logger.debug(e);
+            return false;
+        }
+    }
+
+    public boolean deleteCourseToStudent(Integer courseId, Integer studentId) {
+        String sql = "call deletestudentscourse(?,?);";
+        try (Connection connection = MyDataSourceFactory.getMySQLDataSource().getConnection()) {
+            try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+                preparedStatement.setInt(1, courseId);
+                preparedStatement.setInt(2, studentId);
+                preparedStatement.execute();
+                return true;
+            }
+        } catch (SQLException e) {
+            logger.debug(e);
+
+            return false;
+
+        }
+
     }
 }

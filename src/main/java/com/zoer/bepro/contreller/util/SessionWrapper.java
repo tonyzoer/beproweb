@@ -16,10 +16,6 @@ public interface SessionWrapper {
     void setLanguage(String lang);
     void setProfileType(ProfileType type);
     ProfileType getProfileType();
-    void setStudentProfile(StudentProfile sp);
-    StudentProfile getStudentProfile();
-    void setCompanyProfile(CompanyProfile cp);
-    CompanyProfile getCompanyProfile();
     void setSdudentsSpecifications(List<Specifications> lst);
     List<Specifications> getStudentSpecifications();
     void setSpecifications(List<Specifications> lst);

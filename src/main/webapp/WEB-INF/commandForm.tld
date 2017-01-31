@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<taglib version="2.1" xmlns="http://java.sun.com/xml/ns/javaee"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-jsptaglibrary_2_1.xsd">
+    <tlib-version>1.0</tlib-version>
+    <short-name>commandForm</short-name>
+    <tag>
+        <name>commandbtn</name>
+        <tag-class>com.zoer.bepro.contreller.util.CommandButtonTag</tag-class>
+        <body-content>scriptless</body-content>
+        <attribute>
+            <name>command</name>
+            <required>true</required>
+            <description>Enter command</description>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>method</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <description>Enter method</description>
+        </attribute>
+        <attribute>
+            <name>action</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <description>Enter method</description>
+        </attribute>
+        <attribute>
+            <name>item</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <description>Enter itemvl</description>
+        </attribute>
+    </tag>
+    <tag>
+        <name>commandform</name>
+        <tag-class>com.zoer.bepro.contreller.util.CommandFormTag</tag-class>
+        <body-content>scriptless</body-content>
+        <attribute>
+            <name>command</name>
+            <required>true</required>
+            <description>Enter command</description>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>method</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <description>Enter method</description>
+        </attribute>
+        <attribute>
+            <name>action</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <description>Enter method</description>
+        </attribute>
+        <attribute>
+            <name>item</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <description>Enter itemvl</description>
+        </attribute>
+    </tag>
+</taglib>

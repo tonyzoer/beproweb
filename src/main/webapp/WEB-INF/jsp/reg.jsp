@@ -1,14 +1,16 @@
 <%@page contentType="text/html" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html>
-<%@include file="includes/head.jsp" %>
+<head>
+    <%@include file="includes/head.jsp" %>
+    <%@include file="includes/navbar.jsp" %>
+</head>
 <body>
-<%@include file="includes/navbar.jsp" %>
+
 
 <section id="registration">
     <div class="container"><div class="form-group">
-        <form method="post" action="/Controller">
-            <INPUT type="hidden" name="command" value="REGISTER"/>
+        <cf:commandform  command="REGISTER" method="post">
             <center>
                 <div class="table-responsive">
                     <table border="1" width="30%" cellpadding="5" class="table">
@@ -20,7 +22,12 @@
                         <tbody>
                         <tr>
                             <td><fmt:message key="username" bundle="${bundle}"/></td>
-                            <td><input class="form-control" type="text" name="uname" value=""/></td>
+                            <td><input class="form-control" type="text" name="uname" value=""/>
+                                <c:if test="${not empty requestScope.error&& requestScope.error=='WRONG_LOGIN_LENGTH'}">
+                                    <div class="alert alert-danger" id="error">
+                                        <p>${requestScope.error_message}</p>
+                                    </div>
+                                </c:if></td>
                         </tr>
                         <tr>
                             <td><fmt:message key="email" bundle="${bundle}"/></td>
@@ -35,11 +42,16 @@
                         </tr>
                         <tr>
                             <td><fmt:message key="password" bundle="${bundle}"/></td>
-                            <td><input class="form-control" type="password" name="pass" value=""/></td>
+                            <td><input class="form-control" type="password" name="pass" value=""/>
+                                <c:if test="${not empty requestScope.error&& requestScope.error=='WRONG_PASSWORD'}">
+                                    <div class="alert alert-danger" id="error">
+                                        <p>${requestScope.error_message}</p>
+                                    </div>
+                                </c:if></td>
                         </tr>
                         <tr>
-                            <td><input type="submit" value="Submit"/></td>
-                            <td><input type="reset" value="Reset"/></td>
+                            <td><input class="btn-info" type="submit" value="Submit"/></td>
+                            <td><input class="btn-info" type="reset" value="Reset"/></td>
                         </tr>
                         <tr>
                             <td colspan="2"><fmt:message key="alreadyreg" bundle="${bundle}"/> <a href="#log"
@@ -50,7 +62,7 @@
                     </table>
                 </div>
             </center>
-        </form></div>
+        </cf:commandform></div>
     </div>
 </section>
 <%@include file="includes/footer.jsp" %>

@@ -1,8 +1,8 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
-<%@include file="includes/head.jsp" %>
-<%@include file="includes/navbar.jsp" %>
 <head>
+    <%@include file="includes/head.jsp" %>
+    <%@include file="includes/navbar.jsp" %>
     <title>Title</title>
 </head>
 <body>
@@ -54,9 +54,11 @@
                         <div class="row">
                             <div class="col-lg-6 col-md-12 bg-info center-block">
                                 <c:out value="${joboffer.getDescription()}"/>
-                                <a class="btn btn-primary btn-lg pull-right"
-                                   href="/Controller?command=JOBOFFERINFO&item=${joboffer.getId()}"><fmt:message
-                                        key="moreinfo" bundle="${bundle}"/></a>
+                                <%--<a class="btn btn-primary btn-lg pull-right"--%>
+                                   <%--href="/Controller?command=JOBOFFERINFO&item=${joboffer.getId()}"><fmt:message--%>
+                                        <%--key="moreinfo" bundle="${bundle}"/></a>--%>
+                                <cf:commandbtn command="JOBOFFERINFO" item="${joboffer.getId()}"><fmt:message
+                                        key="moreinfo" bundle="${bundle}"/></cf:commandbtn>
                             </div>
                         </div>
                         <hr>

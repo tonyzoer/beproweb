@@ -20,6 +20,9 @@ public class AddSpecificationCommand implements Command {
     public String execute(RequestWrapper req) throws InsufficientPermissionsException, PersistException {
         User user=req.getSessionWrapper().getUser();
         String parameter = req.getParameter("item");
+        if (parameter==null){
+            return CommandMapping.STUDENTPROFILE.getCommand().execute(req);
+        }
         Specifications specification = DefaultServiceFactory.getInstance().getDefaultSpecificationService().getById(Integer.parseInt(parameter.split("--")[0]));
         if(DefaultServiceFactory.getInstance().getDefaultStudentProfileService().addSpecification(specification, user.getProfile().getStudentProfile().get())){
         List<Specifications> studentSpecifications = req.getSessionWrapper().getStudentSpecifications();

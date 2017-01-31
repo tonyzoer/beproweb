@@ -25,7 +25,8 @@ public enum CommandMapping {
     ADDJOBOFFERTOSTUDENT(new AddJobOfferToStudentProfileCommand()),
     USERINFO(new UserInfoCommand()),
     SPECINFO(new ShowSpecCoursesCommand()),
-    ADDCOURSETOSTODENT(new AddCourseToStudent())
+    ADDCOURSETOSTODENT(new AddCourseToStudent()),
+    REMOVECOURSEFROMSTUDENT(new RemoveCourseFromStudent())
     ;
 
 

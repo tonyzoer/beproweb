@@ -63,7 +63,17 @@ public class DefaultCoursesService extends GenericEntityService<Courses> impleme
             MySqlCoursesDao dao = (MySqlCoursesDao) getDao();
            return dao.insertCourseToStudent(courseId,studId,url);
         } catch (PersistException e) {
-            e.printStackTrace();
+            logger.debug(e);
+        }
+        return false;
+    }
+    @Override
+    public boolean deleteCourseFromStudent(Integer courseId, Integer studId){
+        try {
+            MySqlCoursesDao dao = (MySqlCoursesDao) getDao();
+            return dao.deleteCourseToStudent(courseId,studId);
+        } catch (PersistException e) {
+            logger.debug(e);
         }
         return false;
     }

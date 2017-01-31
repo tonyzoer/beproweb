@@ -10,28 +10,31 @@
 <head>
     <title>Title</title>
 </head>
-<%@include file="includes/head.jsp" %>
+<head>
+    <%@include file="includes/head.jsp" %>
+    <%@include file="includes/navbar.jsp" %>
+</head>
 <body>
-<%@include file="includes/navbar.jsp" %>
 <section>
     <div class="container">
         <div class="col-lg-8">
-            <img src="${sessionScope.user.getProfile().getCompanyProfile().get().getImgurl()}" alt="Cinque Terre" class="img-responsive">
+            <img src="${sessionScope.user.getProfile().getCompanyProfile().get().getImgurl()}" alt="Cinque Terre"
+                 class="img-responsive">
             <c:set scope="request" value="${requestScope.joboffers}" var="joboffers"/>
             <c:forEach items="${joboffers}" var="joboffer">
                 <div class="row">
-                    <div class="col-lg-6 col-md-12 bg-info center-block">
+                    <div class="col-lg-6 bg-info center-block">
                         <c:out value="${joboffer.getDescription()}"/>
-                        <form class="col-xs-2 pull-right" action="/Controller" method="post">
-                            <INPUT type="hidden" name="command" value="DELETEJOBOFFER"/>
-                            <button type="submit" class="btn btn-primary btn-lg pull-right" name="item"
-                                    value="${joboffer.getId()}"><fmt:message key="delete" bundle="${bundle}"/></button>
-                        </form>
-                        <form class="col-xs-2 pull-right" action="/Controller" method="get">
-                            <INPUT type="hidden" name="command" value="JOBOFFERINFO"/>
-                            <button type="submit" class="btn btn-primary btn-lg pull-right" name="item"
-                               value="${joboffer.getId()}"><fmt:message key="moreinfo" bundle="${bundle}"/></button>
-                        </form>
+                        <div class="pull-right"><cf:commandbtn command="DELETEJOBOFFER" item="joboffer.getId()"
+                                                               method="post">
+                            <fmt:message key="delete" bundle="${bundle}"/>
+                        </cf:commandbtn>
+                        </div>
+                        <div class="pull-right">
+                            <cf:commandbtn command="JOBOFFERINFO" item="${joboffer.getId()}">
+                                <fmt:message key="moreinfo" bundle="${bundle}"/>
+                            </cf:commandbtn>
+                        </div>
 
                     </div>
                 </div>
@@ -39,8 +42,9 @@
             </c:forEach>
         </div>
         <div class="col-md-4">
-    <a href="/Controller?command=CREATEJOBOFFERVIEW" class="btn btn-lg btn-primary pull-right"><fmt:message key="create" bundle="${bundle}"/> <fmt:message key="joboffer" bundle="${bundle}"/></a>
-    </div>
+            <cf:commandbtn command="CREATEJOBOFFERVIEW"><fmt:message
+                    key="create" bundle="${bundle}"/> <fmt:message key="joboffer" bundle="${bundle}"/></cf:commandbtn>
+        </div>
     </div>
 </section>
 <%@include file="includes/footer.jsp" %>

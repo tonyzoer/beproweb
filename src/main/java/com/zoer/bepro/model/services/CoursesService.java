@@ -16,4 +16,6 @@ public interface CoursesService extends EntityService<Courses> {
     Map<Courses,String> getAllStudentsCourses(Integer studentId);
 
     boolean addCourseToStudent(Integer courseId, Integer studId, String url);
+
+    boolean deleteCourseFromStudent(Integer courseId, Integer studId);
 }

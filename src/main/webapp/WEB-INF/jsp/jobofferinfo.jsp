@@ -9,12 +9,13 @@
 <html>
 
 <head>
-
-    <title></title>
+    <title>Job Offer</title>
+    <%@include file="includes/head.jsp" %>
+    <%@include file="includes/navbar.jsp" %>
 </head>
-<%@include file="includes/head.jsp" %>
+
 <body>
-<%@include file="includes/navbar.jsp" %>
+
 <c:set value="${requestScope.jobOffer}" scope="request" var="jobOffer"/>
 <c:set value="${requestScope.jobOfferSpecification}" scope="request" var="jobOfferSpecification"/>
 <c:set value="${requestScope.jobOfferText}" scope="request" var="jobOfferText"/>
@@ -33,7 +34,8 @@
             <div class="col-md-6"><h2><fmt:message key="spectoknow" bundle="${bundle}"/></h2>
                 <ol>
                     <c:forEach items="${jobOfferSpecification}" var="speci">
-                        <li><a href="/Controller?command=SPECINFO&item=${speci.getId()}" class="btn-link">${speci.getValue()}</a></li>
+                        <li><a href="/Controller?command=SPECINFO&item=${speci.getId()}"
+                               class="btn-link">${speci.getValue()}</a></li>
                     </c:forEach>
                 </ol>
             </div>
@@ -41,10 +43,9 @@
                 <div class="col-md-6"><h2><fmt:message key="apply" bundle="${bundle}"/></h2>
                 <c:choose>
                     <c:when test="${alreadyaplied==false}">
-
-
-                        <a href="/Controller?command=ADDJOBOFFERTOSTUDENT&jobofferid=${jobOffer.getId()}"
-                           class="btn btn-primary btn-lg"><fmt:message key="sendaply" bundle="${bundle}"/></a>
+                        <cf:commandbtn command="ADDJOBOFFERTOSTUDENT" method="post"
+                                       item="${jobOffer.getId()}"><fmt:message key="sendaply"
+                                                                               bundle="${bundle}"/></cf:commandbtn>
                         </div>
                     </c:when>
                     <c:otherwise>
@@ -58,17 +59,16 @@
     </div>
     <c:if test="${not empty requestScope.students}">
         <c:set scope="request" value="${requestScope.students}" var="students"/>
-    <div class="col-md-12">
-    <c:forEach items="${students}" var="studi">
-        <div class="col-lg-6 col-md-12 bg-info center-block">
-            <h3>${studi.getProfile().getStudentProfile().get().getName()}</h3>
-            <form action="/Controller" method="get">
-                <INPUT hidden name="command" value="USERINFO"/>
-                <button name="nickname" value="${studi.getNickname()}"><fmt:message bundle="${bundle}" key="moreinfo"/></button>
-            </form>
+        <div class="col-md-12">
+            <c:forEach items="${students}" var="studi">
+                <div class="col-lg-6 col-md-12 bg-info center-block">
+                    <h3>${studi.getProfile().getStudentProfile().get().getName()}</h3>
+
+                    <div class="pull-right"><cf:commandbtn command="USERINFO" item="${studi.getNickname()}"><fmt:message
+                            bundle="${bundle}" key="moreinfo"/></cf:commandbtn></div>
+                </div>
+            </c:forEach>
         </div>
-    </c:forEach>
-    </div>
     </c:if>
 </section>
 <%@include file="includes/footer.jsp" %>

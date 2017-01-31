@@ -12,8 +12,7 @@ public class LogOutCommand implements Command {
 
     @Override
     public String execute(RequestWrapper req) throws InsufficientPermissionsException, PersistException {
-        req.getSessionWrapper().setUser(null);
-        req.getSessionWrapper().setProfileType(null);
+        req.getSessionWrapper().invalidate();
         return ViewJsp.General.MAIN;
     }
 }

@@ -20,16 +20,16 @@ public class RegistrationCommand implements Command {
     public String execute(RequestWrapper req) throws InsufficientPermissionsException, PersistException {
         User user1=new User();
         user1.setNickname(req.getParameter("uname"));
-        user1.setPassword(req.getParameter("pass"));
+        if (!RegisterVerifier.isValifStringLength(user1.getNickname(),4)){
+            JspMessagesSetter.setOutputError(req, JspMessagesSetter.JspError.WRONG_LOGIN_LENGTH,"login"+user1.getNickname()+"is too short");
+            return CommandMapping.REGISTERVIEW.getCommand().execute(req);
+        }
         user1.setEmail( req.getParameter("email"));
         if (!RegisterVerifier.isValidEmailAddress(user1.getEmail())){
             JspMessagesSetter.setOutputError(req, JspMessagesSetter.JspError.WRONG_EMAIL,"email "+user1.getEmail()+"is invalid");
             return CommandMapping.REGISTERVIEW.getCommand().execute(req);
         }
-        if (!RegisterVerifier.isValifStringLength(user1.getNickname(),4)){
-            JspMessagesSetter.setOutputError(req, JspMessagesSetter.JspError.WRONG_LOGIN_LENGTH,"login"+user1.getNickname()+"is too short");
-            return CommandMapping.REGISTERVIEW.getCommand().execute(req);
-        }
+        user1.setPassword(req.getParameter("pass"));
         if (!RegisterVerifier.isPasswordIsValid(user1.getPassword())){
             JspMessagesSetter.setOutputError(req, JspMessagesSetter.JspError.WRONG_PASSWORD,"password is invalid");
             return CommandMapping.REGISTERVIEW.getCommand().execute(req);

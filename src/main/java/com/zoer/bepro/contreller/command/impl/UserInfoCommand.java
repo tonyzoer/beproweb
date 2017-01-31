@@ -18,7 +18,7 @@ public class UserInfoCommand implements Command {
 
     @Override
     public String execute(RequestWrapper req) throws InsufficientPermissionsException, PersistException {
-        String nick = req.getParameter("nickname");
+        String nick = req.getParameter("item");
         User pageUser = DefaultServiceFactory.getInstance().getDefaultUserSevice().getUser(nick);
         req.setAttribute("pageuser", pageUser);
         ProfileType prfltp = DefaultServiceFactory.getInstance().getDefaultProfileService().getProfileType(pageUser.getProfile());

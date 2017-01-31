@@ -8,11 +8,12 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
+    <%@include file="includes/head.jsp" %>
     <title>Job Offers</title>
+    <%@include file="includes/navbar.jsp" %>
 </head>
-<%@include file="includes/head.jsp" %>
+
 <body>
-<%@include file="includes/navbar.jsp" %>
 <section>
     <c:set scope="request" value="${requestScope.alljoboffers}" var="alljoboffers"/>
     <div class="container">
@@ -20,8 +21,8 @@
             <div class="row">
             <div class="col-lg-12 col-md-12 bg-info center-block">
                 <c:out value="${joboffer.getKey().getDescription()} in ${joboffer.getValue()}"/>
-                <a class="btn btn-primary btn-lg pull-right"
-                   href="/Controller?command=JOBOFFERINFO&item=${joboffer.getKey().getId()}"><fmt:message key="moreinfo" bundle="${bundle}"/></a>
+
+                <cf:commandbtn command="JOBOFFERINFO" item="${joboffer.getKey().getId()}"><fmt:message key="moreinfo" bundle="${bundle}"/></cf:commandbtn>
             </div>
             </div>
             <hr/>

@@ -60,29 +60,19 @@ public class MySqlProfileDao extends AbstractJDBCDao<Profile, Integer> {
                 profile.setId(rs.getInt("idprofile"));
                 int stud = rs.getInt("studentprofile_idstudentprofile");
                 if (stud != 0) {
-                    //TODO after creating every dao of profiles - uncoment this
                     MySqlStudentProfileDao studentProfileDao = new MySqlStudentProfileDao();
                     profile.setStudentProfile(studentProfileDao.getByPK(stud));
                 }
-//                else {
-//                   profile.setStudentProfile(null);//можна убрать (для читаемости кода)
-//                }
                 int com = rs.getInt("companyprofile_idcompanyprofile");
                 if (com != 0) {
                     MySqlCompanyProfileDao mySqlCompanyProfileDao = new MySqlCompanyProfileDao();
                     profile.setCompanyProfile(mySqlCompanyProfileDao.getByPK(com));
                 }
-//                else {
-////                    profile.setCompanyProfile(null);//можна убрать (для читаемости кода)
-//                }
                 int adm = rs.getInt("adminprofile_idadminprofile");
                 if (adm != 0) {
 //                    MySqlAdminProfile adminProfile = new MySqlAdminProfile(connection);
 //                    profile.setAdminProfile(adminProfile.getByPK(adm));
                 }
-//                else {
-//                    profile.setAdminProfile(null);//можна убрать (для читаемости кода)
-//                }
                 result.add(profile);
             }
         } catch (Exception e) {
