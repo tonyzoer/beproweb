@@ -43,4 +43,10 @@ public class Courses implements Identified<Integer> {
     public void setId(Integer id) {
         this.id = id;
     }
+
+
+    @Override
+    public int compareTo(Identified<Integer> integerIdentified) {
+        return this.getId()-integerIdentified.getId();
+    }
 }

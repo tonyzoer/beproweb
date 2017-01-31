@@ -293,17 +293,17 @@ small {
     FOOTER STYLES
 ==================================================*/
 
-#footer {
-    color: #000;
-    border-top: 1px solid #d6d6d6;
-    position: relative;
-    bottom: 0;
-    padding: 1rem;
-    background-color: #efefef;
-    text-align: center;
-    width:100%;
+/*#footer {*/
+    /*color: #000;*/
+    /*border-top: 1px solid #d6d6d6;*/
+    /*position: relative;*/
+    /*bottom: 0;*/
+    /*padding: 1rem;*/
+    /*background-color: #efefef;*/
+    /*text-align: center;*/
+    /*width:100%;*/
 
-}
+/*}*/
 
 /*=======================================
     MEDIA QUERIES

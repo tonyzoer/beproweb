@@ -8,7 +8,6 @@ import com.zoer.bepro.model.dao.PersistException;
 import com.zoer.bepro.model.domain.JobOffers;
 import com.zoer.bepro.model.domain.User;
 import com.zoer.bepro.model.services.ProfileType;
-import com.zoer.bepro.model.services.impl.DefaultJobOffersService;
 import com.zoer.bepro.model.services.impl.DefaultServiceFactory;
 
 import java.util.List;

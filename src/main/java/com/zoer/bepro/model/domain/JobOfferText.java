@@ -25,4 +25,8 @@ String text;
     public Integer getId() {
         return id;
     }
+    @Override
+    public int compareTo(Identified<Integer> integerIdentified) {
+        return this.getId()-integerIdentified.getId();
+    }
 }

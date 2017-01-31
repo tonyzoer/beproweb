@@ -30,20 +30,20 @@ public class MainController extends HttpServlet {
     }
 
     private void parseRequest(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String jspUrl;
+        String jspUrl=null;
         RequestWrapper requestWrapper=new RequestWrapperImpl(req);
         try {
             jspUrl = commandDispatcher.executeRequest(requestWrapper);
             req.getRequestDispatcher(jspUrl).forward(req, resp);
         } catch (InsufficientPermissionsException e) {
             JspMessagesSetter.setOutputError(requestWrapper, JspMessagesSetter.JspError.INSUFFICIENT_PERMISSIONS);
-            logger.debug(e.getMessage());
+            logger.debug(e.getMessage()+jspUrl);
             resp.sendError(HttpServletResponse.SC_FORBIDDEN);
         } catch (NotFoundException e) {
-            logger.debug(e.getMessage());
+            logger.debug(e.getMessage()+jspUrl);
             resp.sendError(HttpServletResponse.SC_NOT_FOUND);
         } catch (Exception e){
-            logger.error(e.getMessage());
+            logger.error(e.getMessage()+jspUrl);
             resp.sendError(HttpServletResponse.SC_NOT_FOUND);
         }
     }

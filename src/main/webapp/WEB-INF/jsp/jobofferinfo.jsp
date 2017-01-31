@@ -63,7 +63,7 @@
         <div class="col-lg-6 col-md-12 bg-info center-block">
             <h3>${studi.getProfile().getStudentProfile().get().getName()}</h3>
             <form action="/Controller" method="get">
-                <INPUT hidden name="command" value="USERINFO">
+                <INPUT hidden name="command" value="USERINFO"/>
                 <button name="nickname" value="${studi.getNickname()}"><fmt:message bundle="${bundle}" key="moreinfo"/></button>
             </form>
         </div>

@@ -10,4 +10,8 @@ public class AdminProfile  implements Identified<Integer>{
     public Integer getId() {
         return null;
     }
+    @Override
+    public int compareTo(Identified<Integer> integerIdentified) {
+        return this.getId()-integerIdentified.getId();
+    }
 }

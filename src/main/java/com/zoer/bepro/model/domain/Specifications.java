@@ -39,6 +39,14 @@ public class Specifications implements Identified<Integer> {
     }
     @Override
     public boolean equals(Object s){
-        return  (((Specifications) s).getId().equals(this.getId()));
+        return  s!=null?((Specifications) s).getId().equals(this.getId()):false;
+    }
+    @Override
+    public int hashCode(){
+        return id;
+    }
+    @Override
+    public int compareTo(Identified<Integer> integerIdentified) {
+        return this.getId()-integerIdentified.getId();
     }
 }

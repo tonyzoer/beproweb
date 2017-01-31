@@ -11,7 +11,7 @@ import org.apache.log4j.Logger;
 
 
 public class DefaultUserSevice extends GenericEntityService<User> implements UserService {
-    private final static Logger logger = Logger.getLogger(DefaultUserSevice.class);
+    private static final Logger logger = Logger.getLogger(DefaultUserSevice.class);
 
     DefaultUserSevice() {
     }
@@ -22,7 +22,6 @@ public class DefaultUserSevice extends GenericEntityService<User> implements Use
     }
 
 
-
     @Override
     public User authentication(String loginOrMail, String password) {
         User user = null;
@@ -31,32 +30,36 @@ public class DefaultUserSevice extends GenericEntityService<User> implements Use
         } catch (PersistException e) {
             logger.debug(e);
         }
-        if (user!=null && user.getPassword().equals(password))
+        if (user != null && user.getPassword().equals(password))
             return user;
         return null;
     }
-    public User getUser(String loginOrMail){
+
+    @Override
+    public User getUser(String loginOrMail) {
         try {
-            User user = getDao().getByNickOrEmail(loginOrMail);
-            return user;
+            return getDao().getByNickOrEmail(loginOrMail);
+
         } catch (PersistException e) {
             logger.debug(e);
         }
         return null;
     }
-    public User getUser(StudentProfile profile){
+
+    @Override
+    public User getUser(StudentProfile profile) {
         try {
-            User user = getDao().getByProfile(profile);
-            return user;
+            return getDao().getByProfile(profile);
         } catch (PersistException e) {
             logger.debug(e);
         }
         return null;
     }
-    public User getUser(CompanyProfile profile){
+
+    @Override
+    public User getUser(CompanyProfile profile) {
         try {
-            User user = getDao().getByProfile(profile);
-            return user;
+            return getDao().getByProfile(profile);
         } catch (PersistException e) {
             logger.debug(e);
         }

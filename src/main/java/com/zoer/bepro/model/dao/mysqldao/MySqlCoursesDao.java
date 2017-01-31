@@ -11,6 +11,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
 /**
  * Created by zoer on 31.12.16.
@@ -108,5 +110,63 @@ public class MySqlCoursesDao extends AbstractJDBCDao<Courses, Integer> {
             e.printStackTrace();
         }
         return null;
+    }
+    public Map<Courses,String> getAllStudentsSpecCourses(Integer specId, Integer studentId) {
+        String sql="call studentssavedcourseswithimages(?,?);";
+        try(Connection connection = MyDataSourceFactory.getMySQLDataSource().getConnection()) {
+            try(PreparedStatement statement=connection.prepareStatement(sql)){
+                statement.setInt(1,specId);
+                statement.setInt(2,studentId);
+                ResultSet rs=statement.executeQuery();
+
+                return parseResultMap(rs);
+            }
+        } catch (SQLException e) {
+            logger.debug(e);
+        }
+        return null;
+    }
+    public Map<Courses,String> getAllStudentsSpecCourses(Integer studentId) {
+        String sql="call getallstudentspassedcourses(?);";
+        try(Connection connection = MyDataSourceFactory.getMySQLDataSource().getConnection()) {
+            try(PreparedStatement statement=connection.prepareStatement(sql)){
+                statement.setInt(1,studentId);
+                ResultSet rs=statement.executeQuery();
+                return parseResultMap(rs);
+            }
+        } catch (SQLException e) {
+            logger.debug(e);
+        }
+        return null;
+    }
+    private Map<Courses,String> parseResultMap(ResultSet rs){
+        Map<Courses,String> result = new TreeMap<>();
+            try {
+                while (rs.next()) {
+                    Courses c = new Courses();
+                    c.setId(rs.getInt("idcourses"));
+                    c.setUrl(rs.getString("url"));
+                    c.setSpecName(rs.getString("specname"));
+                    c.setSpecId(rs.getInt("specifications_idspecifications"));
+                    result.put(c,rs.getString("imgurl"));
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            return result;
+        }
+    public boolean insertCourseToStudent(Integer courseId,Integer studentId,String imgurl){
+        String sql="call addstudentscourse(?,?,?);";
+        try(Connection connection=MyDataSourceFactory.getMySQLDataSource().getConnection()){
+        try(PreparedStatement preparedStatement=connection.prepareStatement(sql)){
+            preparedStatement.setInt(1,courseId);
+            preparedStatement.setInt(2,studentId);
+            preparedStatement.setString(3,imgurl);
+            preparedStatement.execute();
+        }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 }

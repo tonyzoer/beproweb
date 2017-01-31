@@ -6,11 +6,10 @@ import com.zoer.bepro.contreller.util.RequestWrapper;
 import com.zoer.bepro.contreller.util.ViewJsp;
 import com.zoer.bepro.model.dao.PersistException;
 import com.zoer.bepro.model.domain.CompanyProfile;
-import com.zoer.bepro.model.domain.Profile;
 import com.zoer.bepro.model.domain.StudentProfile;
 import com.zoer.bepro.model.domain.User;
 import com.zoer.bepro.model.services.ProfileType;
-import com.zoer.bepro.model.services.impl.*;
+import com.zoer.bepro.model.services.impl.DefaultServiceFactory;
 
 /**
  * Created by zoer on 26.01.17.
@@ -31,6 +30,7 @@ public class UserInfoCommand implements Command {
                 StudentProfile sp = pageUser.getProfile().getStudentProfile().get();
                 req.setAttribute("name", sp.getName());
                 req.setAttribute("spec", DefaultServiceFactory.getInstance().getDefaultSpecificationService().getStudentsSpecifications(sp.getId()));
+                req.setAttribute("specpassedcourses",DefaultServiceFactory.getInstance().getDefaultCoursesService().getAllStudentsCourses(sp.getId()));
                 req.setAttribute("cv", sp.getCvurl());
                 break;
             case NOONE:

@@ -1,7 +1,5 @@
 package com.zoer.bepro.model.services.impl;
 
-import com.zoer.bepro.model.services.*;
-
 /**
  * Created by zoer on 28.01.17.
  */
@@ -15,6 +13,12 @@ public class DefaultServiceFactory {
     private DefaultSpecificationService defaultSpecificationService = new DefaultSpecificationService();
     private DefaultStudentProfileService defaultStudentProfileService = new DefaultStudentProfileService();
     private DefaultUserSevice defaultUserSevice = new DefaultUserSevice();
+
+    private DefaultServiceFactory() {
+        if(ourInstance!=null){
+            throw new IllegalStateException("Already exsists");
+        }
+    }
 
     public DefaultCompanyProfileService getDefaultCompanyProfileService() {
         return defaultCompanyProfileService;
@@ -44,19 +48,13 @@ public class DefaultServiceFactory {
         return defaultStudentProfileService;
     }
 
+
     public DefaultUserSevice getDefaultUserSevice() {
         return defaultUserSevice;
     }
 
-
     public static DefaultServiceFactory getInstance() {
         return ourInstance;
-    }
-
-    private DefaultServiceFactory() {
-        if(ourInstance!=null){
-            throw new IllegalStateException("Already exsists");
-        }
     }
     @Override
     public Object clone() throws CloneNotSupportedException{

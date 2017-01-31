@@ -63,4 +63,8 @@ public class User implements Identified<Integer> {
     public void setProfile(Profile profile) {
         this.profile = profile;
     }
+    @Override
+    public int compareTo(Identified<Integer> integerIdentified) {
+        return this.getId()-integerIdentified.getId();
+    }
 }

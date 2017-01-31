@@ -6,7 +6,6 @@ import com.zoer.bepro.contreller.exeptions.InsufficientPermissionsException;
 import com.zoer.bepro.contreller.util.RequestWrapper;
 import com.zoer.bepro.model.dao.PersistException;
 import com.zoer.bepro.model.domain.JobOffers;
-import com.zoer.bepro.model.services.impl.DefaultJobOffersService;
 import com.zoer.bepro.model.services.impl.DefaultServiceFactory;
 
 /**

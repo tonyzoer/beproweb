@@ -6,32 +6,36 @@ import com.zoer.bepro.model.dao.Identified;
  * Created by zoer on 27.12.16.
  */
 public class JobOffers implements Identified<Integer> {
-    Integer Id;
-    Integer CompanyId;
-    String Description;
+    Integer id;
+    Integer companyId;
+    String description;
     
     public Integer getCompanyId() {
-        return CompanyId;
+        return companyId;
     }
 
     public void setCompanyId(Integer companyId) {
-        CompanyId = companyId;
+        this.companyId = companyId;
     }
 
     public String getDescription() {
-        return Description;
+        return description;
     }
 
     public void setDescription(String description) {
-        Description = description;
+        this.description = description;
     }
 
     @Override
     public Integer getId() {
-        return Id;
+        return id;
     }
 
     public void setId(Integer id) {
-        Id = id;
+        this.id = id;
+    }
+    @Override
+    public int compareTo(Identified<Integer> integerIdentified) {
+        return this.getId()-integerIdentified.getId();
     }
 }

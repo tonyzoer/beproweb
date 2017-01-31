@@ -45,4 +45,8 @@ public class Profile implements Identified<Integer> {
     public void setStudentProfile(StudentProfile studentProfile) {
         this.studentProfile = studentProfile;
     }
+    @Override
+    public int compareTo(Identified<Integer> integerIdentified) {
+        return this.getId()-integerIdentified.getId();
+    }
 }

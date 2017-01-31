@@ -49,5 +49,8 @@ public class CompanyProfile implements Identified<Integer> {
     public Integer getId() {
         return idcompanyprofile;
     }
-
+    @Override
+    public int compareTo(Identified<Integer> integerIdentified) {
+        return this.getId()-integerIdentified.getId();
+    }
 }

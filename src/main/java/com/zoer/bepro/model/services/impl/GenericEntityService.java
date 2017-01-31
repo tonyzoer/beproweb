@@ -4,7 +4,6 @@ import com.zoer.bepro.model.dao.AbstractJDBCDao;
 import com.zoer.bepro.model.dao.Identified;
 import com.zoer.bepro.model.dao.PersistException;
 import com.zoer.bepro.model.services.EntityService;
-import com.zoer.bepro.model.services.ServiceFactory;
 
 import java.util.List;
 

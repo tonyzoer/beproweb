@@ -11,10 +11,7 @@ import com.zoer.bepro.model.domain.JobOffers;
 import com.zoer.bepro.model.domain.Specifications;
 import com.zoer.bepro.model.domain.User;
 import com.zoer.bepro.model.services.ProfileType;
-import com.zoer.bepro.model.services.impl.DefaultJobOfferTextService;
-import com.zoer.bepro.model.services.impl.DefaultJobOffersService;
 import com.zoer.bepro.model.services.impl.DefaultServiceFactory;
-import com.zoer.bepro.model.services.impl.DefaultSpecificationService;
 
 import java.util.Arrays;
 import java.util.List;

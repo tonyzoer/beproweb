@@ -8,8 +8,6 @@ import com.zoer.bepro.model.dao.PersistException;
 import com.zoer.bepro.model.domain.Specifications;
 import com.zoer.bepro.model.domain.User;
 import com.zoer.bepro.model.services.impl.DefaultServiceFactory;
-import com.zoer.bepro.model.services.impl.DefaultSpecificationService;
-import com.zoer.bepro.model.services.impl.DefaultStudentProfileService;
 
 import java.util.List;
 

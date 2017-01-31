@@ -26,7 +26,21 @@
                     </ol>
                 </div>
                 <div class="col-lg-6">
-                    <a href="${cv}" class="btn btn-primary btn-lg"><fmt:message bundle="${bundle}" key="downloadcv"/></a>
+                    <h2>PASSED COURSES</h2>
+                    <ol>
+                        <c:set scope="request" value="${requestScope.specpassedcourses}" var="courses"/>
+                        <c:forEach items="${courses}" var="course">
+                            <li><a href="${course.getKey().getUrl()}">${course.getKey().getSpecName()}</a>
+                                <a href="${course.getValue()}" class="btn btn-primary"><fmt:message
+                                        bundle="${bundle}" key="show"/></a>
+                            </li>
+                            <hr>
+                        </c:forEach>
+                    </ol>
+                </div>
+                <div class="col-lg-6">
+                    <a href="${cv}" class="btn btn-primary btn-lg"><fmt:message bundle="${bundle}"
+                                                                                key="downloadcv"/></a>
                 </div>
             </c:when>
             <c:when test="${type==2}">
@@ -34,20 +48,21 @@
                 <c:set scope="request" value="${requestScope.name}" var="name"/>
                 <c:set scope="request" value="${requestScope.joboffers}" var="joboffers"/>
                 <div class="col-lg-8">
-                <img src="${imgurl}" alt="Cinque Terre" class="img-responsive">
+                    <img src="${imgurl}" alt="Cinque Terre" class="img-responsive">
                     <h1>${name}</h1>
                     <c:forEach items="${joboffers}" var="joboffer">
                         <div class="row">
                             <div class="col-lg-6 col-md-12 bg-info center-block">
                                 <c:out value="${joboffer.getDescription()}"/>
                                 <a class="btn btn-primary btn-lg pull-right"
-                                   href="/Controller?command=JOBOFFERINFO&item=${joboffer.getId()}"><fmt:message key="moreinfo" bundle="${bundle}"/></a>
+                                   href="/Controller?command=JOBOFFERINFO&item=${joboffer.getId()}"><fmt:message
+                                        key="moreinfo" bundle="${bundle}"/></a>
                             </div>
                         </div>
                         <hr>
                     </c:forEach>
                 </div>
-                    </c:when>
+            </c:when>
             <c:when test="${type==3}"></c:when>
         </c:choose>
     </div>

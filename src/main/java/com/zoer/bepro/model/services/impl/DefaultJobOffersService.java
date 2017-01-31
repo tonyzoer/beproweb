@@ -38,6 +38,7 @@ public class DefaultJobOffersService extends GenericEntityService<JobOffers> imp
            e.printStackTrace();
        }
    }
+   @Override
     public List<JobOffers> getCompanyJobOffers(CompanyProfile cp){
         try {
             MySqlJobOffersDao dao= (MySqlJobOffersDao) getDao();
@@ -47,6 +48,7 @@ public class DefaultJobOffersService extends GenericEntityService<JobOffers> imp
         }
         return null;
     }
+    @Override
     public List<JobOffers> getStudentsJobOffers(StudentProfile sp){
         try {
             MySqlJobOffersDao dao= (MySqlJobOffersDao) getDao();
@@ -56,6 +58,7 @@ public class DefaultJobOffersService extends GenericEntityService<JobOffers> imp
         }
         return null;
     }
+    @Override
     public boolean existsSTudentJobOffer(StudentProfile sp,JobOffers jo){
         try {
             MySqlJobOffersDao dao= (MySqlJobOffersDao) getDao();

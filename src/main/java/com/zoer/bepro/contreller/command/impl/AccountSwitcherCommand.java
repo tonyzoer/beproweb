@@ -15,7 +15,7 @@ import org.apache.log4j.Logger;
  * Created by zoer on 20.01.17.
  */
 public class AccountSwitcherCommand implements Command {
-    private final static Logger logger = Logger.getLogger(AccountSwitcherCommand.class);
+    private  static final Logger logger = Logger.getLogger(AccountSwitcherCommand.class);
 
 
     @Override

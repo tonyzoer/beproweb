@@ -13,10 +13,10 @@ import org.apache.log4j.Logger;
  * Created by Zoer on 13.01.2017.
  */
 public class DefaultProfileService extends GenericEntityService<Profile> implements ProfileServices {
+    private static final  Logger logger = Logger.getLogger(DefaultProfileService.class);
+
     DefaultProfileService() {
     }
-
-    private final static Logger logger = Logger.getLogger(DefaultProfileService.class);
     @Override
     AbstractJDBCDao<Profile, Integer> getDao() throws PersistException {
         return (MySqlProfileDao) MySqlDaoFactory.getInstance().getDao(Profile.class);

@@ -6,7 +6,7 @@
 <%@include file="includes/navbar.jsp" %>
 
 <section id="registration">
-    <div class="container">
+    <div class="container"><div class="form-group">
         <form method="post" action="/Controller">
             <INPUT type="hidden" name="command" value="REGISTER"/>
             <center>
@@ -20,11 +20,11 @@
                         <tbody>
                         <tr>
                             <td><fmt:message key="username" bundle="${bundle}"/></td>
-                            <td><input type="text" name="uname" value=""/></td>
+                            <td><input class="form-control" type="text" name="uname" value=""/></td>
                         </tr>
                         <tr>
                             <td><fmt:message key="email" bundle="${bundle}"/></td>
-                            <td><input type="text" name="email" value=""
+                            <td><input class="form-control" type="text" name="email" value=""
                                        onfocus="document.getElementById('error').outerHTML=''"/>
                                 <c:if test="${not empty requestScope.error&& requestScope.error=='WRONG_EMAIL'}">
                                     <div class="alert alert-danger" id="error">
@@ -35,7 +35,7 @@
                         </tr>
                         <tr>
                             <td><fmt:message key="password" bundle="${bundle}"/></td>
-                            <td><input type="password" name="pass" value=""/></td>
+                            <td><input class="form-control" type="password" name="pass" value=""/></td>
                         </tr>
                         <tr>
                             <td><input type="submit" value="Submit"/></td>
@@ -50,7 +50,7 @@
                     </table>
                 </div>
             </center>
-        </form>
+        </form></div>
     </div>
 </section>
 <%@include file="includes/footer.jsp" %>

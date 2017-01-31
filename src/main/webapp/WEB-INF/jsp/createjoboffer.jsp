@@ -7,20 +7,20 @@
 <body>
 <%@include file="includes/navbar.jsp" %>
 <section>
-    <h1>CREATE NEW JOB OFFER</h1>
+    <h1>CREATE NEW JOB OFFER</h1><div class="form-group">
     <form action="/Controller" method="post">
         <table class="table-bordered table table-responsive">
             <INPUT type="hidden" name="command" value="CREATEJOBOFFER"/>
             <tr>
                 <td>Name</td>
                 <td>
-                    <input type="text" name="name" placeholder="Description">
+                    <input type="text" name="name" class="form-control" placeholder="Description">
                 </td>
             </tr>
             <tr>
                 <td><fmt:message key="spec" bundle="${bundle}"/></td>
                 <td>
-                    <select id="spec">
+                    <select id="spec" class="form-control">
                         <c:set value="${requestScope.specificationList}" scope="request" var="specificationList"/>
                         <c:forEach items="${specificationList}" var="item">
                             <option value="${item.getId()}--${item.getValue()}">${item.getValue()}</option>
@@ -28,27 +28,29 @@
                     </select>
                     <button onclick="document.getElementById('outSpec').value+=document.getElementById('spec').value+',';
                     var li=document.createElement('li');
+                    li.className='list-group-item';
                     li.appendChild(document.createTextNode(document.getElementById('spec').value))
                     document.getElementById('specList').appendChild(li);
                     $('#spec option:selected').remove();
                                 "
-                            type="button" class="btn"><fmt:message bundle="${bundle}" key="addtolst"/>
+                            type="button" class="btn form-control"><fmt:message bundle="${bundle}" key="addtolst"/>
                     </button>
                     <br>
 
-                    <input type="text" value="" id="newSpecInput">
+                    <input type="text" class="form-control" value="" id="newSpecInput">
                     <button onclick="document.getElementById('outNewSpec').value+=document.getElementById('newSpecInput').value+',';
                     var li=document.createElement('li');
+                    li.className='list-group-item';
                     li.appendChild(document.createTextNode(document.getElementById('newSpecInput').value))
                     document.getElementById('specList').appendChild(li);"
-                            type="button" class="btn"><fmt:message bundle="${bundle}" key="addtolst"/>
+                            type="button" class="btn form-control"><fmt:message bundle="${bundle}" key="addtolst"/>
                     </button>
 
                     <input type="text" hidden value="" id="outSpec" name="spec">
                     <input type="text" hidden value="" id="outNewSpec" name="newspec">
                 </td>
                 <td>
-                    <ol id="specList"></ol>
+                    <ol id="specList" class="list-group"></ol>
                 </td>
             </tr>
             <%--<tr>--%>
@@ -63,11 +65,11 @@
             <%--</td>--%>
             <%--</tr>--%>
         </table>
-        <textarea name="textinfo" value="" placeholder=
+        <textarea name="textinfo" class="form-control" value="" rows="10" placeholder=
         <fmt:message key="jobofferfulldesc" bundle="${bundle}"/> class="col-lg-12"></textarea>
         <br>
         <button type="submit" class="btn btn-lg btn-primary pull-right">Create</button>
-    </form>
+    </form></div>
 </section>
 <%@include file="includes/footer.jsp" %>
 <%@include file="includes/jscripts.jsp" %>

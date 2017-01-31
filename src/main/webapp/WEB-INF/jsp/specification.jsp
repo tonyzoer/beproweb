@@ -14,8 +14,24 @@
         <h2>${spec.getValue()}</h2>
         <div class="col-lg-8">
             <ol>
+
                 <c:forEach items="${courses}" var="course" >
                     <li><a href="${course.getUrl()}">${course.getSpecName()}</a></li>
+                    <c:if test="${requestScope.student==true}">
+                        <c:set scope="request" value="${requestScope.studentsCourses}" var="studcourses"></c:set>
+                    <c:if test="${studcourses.get(course)!=null}">
+                        <a href="${studcourses.get(course)}" class="btn btn-primary pull-right"><fmt:message bundle="${bundle}" key="sertificate" /></a>
+                    </c:if>
+                    <c:if test="${requestScope.student==true}">
+                        <form action="/Controller" method="post">
+                            <INPUT hidden name="command" value="ADDCOURSETOSTODENT"/>
+                            <INPUT hidden name="course" value="${course.getId()}"/>
+                            <INPUT hidden name="item" value="${spec.getId()}"/>
+                            <input type="text" name="url" value=""/>
+                            <button type="submit"><fmt:message bundle="${bundle}" key="add"/></button>
+                        </form>
+                    </c:if>
+                    </c:if>
                     <hr/>
                 </c:forEach>
             </ol>

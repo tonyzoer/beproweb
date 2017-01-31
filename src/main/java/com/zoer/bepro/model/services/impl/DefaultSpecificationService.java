@@ -4,7 +4,6 @@ import com.zoer.bepro.model.dao.AbstractJDBCDao;
 import com.zoer.bepro.model.dao.PersistException;
 import com.zoer.bepro.model.dao.mysqldao.MySqlDaoFactory;
 import com.zoer.bepro.model.dao.mysqldao.MySqlSpecificationsDao;
-import com.zoer.bepro.model.dao.mysqldao.MySqlStudentProfileDao;
 import com.zoer.bepro.model.domain.Courses;
 import com.zoer.bepro.model.domain.Specifications;
 import com.zoer.bepro.model.services.SpecificationsService;
@@ -28,6 +27,7 @@ public class DefaultSpecificationService extends GenericEntityService<Specificat
         return (MySqlSpecificationsDao) MySqlDaoFactory.getInstance().getDao(Specifications.class);
     }
 
+    @Override
     public List<Specifications> getStudentsSpecifications(Integer studentId) {
         List<Specifications> specifications = new ArrayList<>();
         try {
@@ -39,6 +39,7 @@ public class DefaultSpecificationService extends GenericEntityService<Specificat
         return specifications;
     }
 
+    @Override
     public List<Specifications> getJobOfferSpecifications(Integer jobOfferId) {
         List<Specifications> specifications = new ArrayList<>();
         try {
@@ -58,7 +59,7 @@ public class DefaultSpecificationService extends GenericEntityService<Specificat
             specc.setCoursesList(MyCourseraApi.firstNCoursesByName(spec.getValue()));
             for (Courses cou : specc.getCoursesList()) {
                 cou.setSpecId(specc.getId());
-              DefaultServiceFactory.getInstance().getDefaultCoursesService().insert(cou);
+                DefaultServiceFactory.getInstance().getDefaultCoursesService().insert(cou);
 
             }
         } catch (PersistException e) {
