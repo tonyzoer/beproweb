@@ -1,6 +1,6 @@
 package com.zoer.bepro.contreller.command.impl;
 
-import com.zoer.bepro.contreller.command.Command;
+import com.zoer.bepro.contreller.command.ICommand;
 import com.zoer.bepro.contreller.exeptions.InsufficientPermissionsException;
 import com.zoer.bepro.contreller.util.RequestWrapper;
 import com.zoer.bepro.contreller.util.ViewJsp;
@@ -14,7 +14,7 @@ import java.util.List;
 /**
  * Created by zoer on 22.01.17.
  */
-public class CreateJobOfferViewCommand implements Command {
+public class CreateJobOfferViewCommand implements ICommand {
 
 
     @Override

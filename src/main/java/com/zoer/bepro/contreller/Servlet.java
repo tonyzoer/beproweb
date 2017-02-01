@@ -1,7 +1,7 @@
 package com.zoer.bepro.contreller;
 
 import org.apache.log4j.*;
-import com.zoer.bepro.contreller.command.CommandDispatcher;
+import com.zoer.bepro.contreller.command.ICommandDispatcher;
 import com.zoer.bepro.contreller.command.DefaultCommandDispatcher;
 import com.zoer.bepro.contreller.exeptions.InsufficientPermissionsException;
 import com.zoer.bepro.contreller.exeptions.NotFoundException;
@@ -16,9 +16,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-public class MainController extends HttpServlet {
-    private final transient CommandDispatcher commandDispatcher = DefaultCommandDispatcher.getInstance();
-    private final static Logger logger = Logger.getLogger(MainController.class);
+public class Servlet extends HttpServlet {
+    private final transient ICommandDispatcher commandDispatcher = DefaultCommandDispatcher.getInstance();
+    private final static Logger logger = Logger.getLogger(Servlet.class);
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         parseRequest(req, resp);

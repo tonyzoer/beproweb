@@ -30,8 +30,9 @@
                         <button onclick="document.getElementById('outSpec').value+=document.getElementById('spec').value+',';
                     var li=document.createElement('li');
                     li.className='list-group-item';
-                    li.appendChild(document.createTextNode(document.getElementById('spec').value));
+                    li.appendChild(document.createTextNode(document.getElementById('spec').value.split('--')[1]));
                     document.getElementById('specList').appendChild(li);
+                    addremovebtn(li);
                     $('#spec option:selected').remove();
                                 "
                                 type="button" class="btn btn-info form-control"><fmt:message bundle="${bundle}"
@@ -45,6 +46,7 @@
                     var li=document.createElement('li');
                     li.className='list-group-item';
                     li.appendChild(document.createTextNode(document.getElementById('newSpecInput').value));
+                    addremovebtn(li);
                     document.getElementById('specList').appendChild(li);"
                                 type="button" class="btn btn-info form-control"><fmt:message bundle="${bundle}"
                                                                                              key="addtolst"/>
@@ -67,5 +69,16 @@
 </section>
 <%@include file="includes/footer.jsp" %>
 <%@include file="includes/jscripts.jsp" %>
+<script> function addremovebtnOld (li) {
+    li.innerHTML+='<a href="#" onclick="remove(this)">remove</a>'
+}
+function remove(el) {
+    el.parentNode.parentNode.removeChild(link.parentNode);
+}
+function removeFromOutSpec(name) {
+    var str= document.getElementById('outSpec').value;
+    str.split
+}
+</script>
 </body>
 </html>

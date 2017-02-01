@@ -1,7 +1,7 @@
 package com.zoer.bepro.contreller.command.impl;
 
-import com.zoer.bepro.contreller.command.Command;
-import com.zoer.bepro.contreller.command.CommandMapping;
+import com.zoer.bepro.contreller.command.ICommand;
+import com.zoer.bepro.contreller.command.CommandFactory;
 import com.zoer.bepro.contreller.exeptions.InsufficientPermissionsException;
 import com.zoer.bepro.contreller.util.RequestWrapper;
 import com.zoer.bepro.contreller.util.ViewJsp;
@@ -14,7 +14,7 @@ import com.zoer.bepro.model.services.impl.DefaultServiceFactory;
 /**
  * Created by zoer on 20.01.17.
  */
-public class SetProfileCommand implements Command {
+public class SetProfileCommand implements ICommand {
 
 
     @Override
@@ -29,14 +29,14 @@ public class SetProfileCommand implements Command {
                 stp.setCvurl(req.getParameter("cv"));
                 DefaultServiceFactory.getInstance().getDefaultProfileService().createStudentProfile(req.getSessionWrapper().getUser().getProfile(),stp);
                 req.getSessionWrapper().setProfileType(ProfileType.STUDENT);
-                return CommandMapping.STUDENTPROFILE.getCommand().execute(req);
+                return CommandFactory.STUDENTPROFILE.getCommand().execute(req);
             case "company":
                 CompanyProfile cmp=new CompanyProfile();
                 cmp.setImgurl(req.getParameter("picture"));
                 cmp.setInfotxt(req.getParameter("text"));
                 DefaultServiceFactory.getInstance().getDefaultProfileService().createCompanyProfile(req.getSessionWrapper().getUser().getProfile(),cmp);
                 req.getSessionWrapper().setProfileType(ProfileType.COMPANY);
-                return CommandMapping.COMPANYPROFILE.getCommand().execute(req);
+                return CommandFactory.COMPANYPROFILE.getCommand().execute(req);
         }
 
         return ViewJsp.UserSpace.CHOOSE_PROFILE_JSP;

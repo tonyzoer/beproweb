@@ -11,7 +11,7 @@
 
   <servlet>
     <servlet-name>mainController</servlet-name>
-    <servlet-class>com.zoer.bepro.contreller.MainController</servlet-class>
+    <servlet-class>com.zoer.bepro.contreller.Servlet</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>mainController</servlet-name>

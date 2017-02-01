@@ -1,7 +1,7 @@
 package com.zoer.bepro.contreller.command.impl;
 
-import com.zoer.bepro.contreller.command.Command;
-import com.zoer.bepro.contreller.command.CommandMapping;
+import com.zoer.bepro.contreller.command.ICommand;
+import com.zoer.bepro.contreller.command.CommandFactory;
 import com.zoer.bepro.contreller.exeptions.InsufficientPermissionsException;
 import com.zoer.bepro.contreller.util.RequestWrapper;
 import com.zoer.bepro.model.dao.PersistException;
@@ -11,7 +11,7 @@ import com.zoer.bepro.model.services.impl.DefaultServiceFactory;
 /**
  * Created by zoer on 25.01.17.
  */
-public class DeleteJobOfferCommand implements Command {
+public class DeleteJobOfferCommand implements ICommand {
 
 
     @Override
@@ -20,6 +20,6 @@ public class DeleteJobOfferCommand implements Command {
         if (req.getSessionWrapper().getUser().getProfile().getCompanyProfile().get().getId()==jo.getCompanyId()){
             DefaultServiceFactory.getInstance().getDefaultJobOffersService().delete(jo);
         }
-        return CommandMapping.COMPANYPROFILE.getCommand().execute(req);
+        return CommandFactory.COMPANYPROFILE.getCommand().execute(req);
     }
 }

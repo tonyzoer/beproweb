@@ -1,13 +1,12 @@
 package com.zoer.bepro.contreller.command.impl;
 
 
-import com.zoer.bepro.contreller.command.Command;
+import com.zoer.bepro.contreller.command.ICommand;
 import com.zoer.bepro.contreller.util.RequestWrapper;
 import com.zoer.bepro.contreller.util.SessionWrapper;
 import com.zoer.bepro.contreller.util.ViewJsp;
-import com.zoer.bepro.model.domain.User;
 
-public class LocalizationCommand implements Command {
+public class LocalizationCommand implements ICommand {
 
     @Override
     public String execute(RequestWrapper req) {

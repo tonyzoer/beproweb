@@ -1,7 +1,7 @@
 package com.zoer.bepro.contreller.command.impl;
 
-import com.zoer.bepro.contreller.command.Command;
-import com.zoer.bepro.contreller.command.CommandMapping;
+import com.zoer.bepro.contreller.command.ICommand;
+import com.zoer.bepro.contreller.command.CommandFactory;
 import com.zoer.bepro.contreller.exeptions.InsufficientPermissionsException;
 import com.zoer.bepro.contreller.util.JspMessagesSetter;
 import com.zoer.bepro.contreller.util.RequestWrapper;
@@ -14,7 +14,7 @@ import org.apache.log4j.Logger;
 /**
  * Created by zoer on 20.01.17.
  */
-public class AccountSwitcherCommand implements Command {
+public class AccountSwitcherCommand implements ICommand {
     private  static final Logger logger = Logger.getLogger(AccountSwitcherCommand.class);
 
 
@@ -29,12 +29,12 @@ public class AccountSwitcherCommand implements Command {
             ProfileType prftype = req.getSessionWrapper().getProfileType();
             switch (prftype) {
                 case STUDENT:
-                    return CommandMapping.STUDENTPROFILE.getCommand().execute(req);
+                    return CommandFactory.STUDENTPROFILE.getCommand().execute(req);
                 case NOONE:
                     return ViewJsp.UserSpace.CHOOSE_PROFILE_JSP;
 
                 case COMPANY:
-                    return CommandMapping.COMPANYPROFILE.getCommand().execute(req);
+                    return CommandFactory.COMPANYPROFILE.getCommand().execute(req);
 
                 case ADMIN:
                     return ViewJsp.AdminSpace.ADMIN_JSP;

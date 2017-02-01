@@ -1,7 +1,7 @@
 package com.zoer.bepro.contreller.command.impl;
 
-import com.zoer.bepro.contreller.command.Command;
-import com.zoer.bepro.contreller.command.CommandMapping;
+import com.zoer.bepro.contreller.command.ICommand;
+import com.zoer.bepro.contreller.command.CommandFactory;
 import com.zoer.bepro.contreller.exeptions.InsufficientPermissionsException;
 import com.zoer.bepro.contreller.util.RequestWrapper;
 import com.zoer.bepro.contreller.util.ViewJsp;
@@ -19,7 +19,7 @@ import java.util.List;
 /**
  * Created by zoer on 22.01.17.
  */
-public class CreateJobOfferCommand implements Command {
+public class CreateJobOfferCommand implements ICommand {
 
 
     @Override
@@ -56,6 +56,6 @@ public class CreateJobOfferCommand implements Command {
             }
         }
         req.addParameter("item", jo.getId().toString());
-        return CommandMapping.JOBOFFERINFO.getCommand().execute(req);
+        return CommandFactory.JOBOFFERINFO.getCommand().execute(req);
     }
 }

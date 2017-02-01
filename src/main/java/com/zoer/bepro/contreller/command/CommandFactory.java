@@ -1,12 +1,11 @@
 package com.zoer.bepro.contreller.command;
 
-import com.zoer.bepro.contreller.command.Command;
 import com.zoer.bepro.contreller.command.impl.*;
 
 /**
  * Created by zoer on 23.01.17.
  */
-public enum CommandMapping {
+public enum CommandFactory {
     LOGIN(new LoginCommand()),
     REGISTER(new RegistrationCommand()),
     DETECTPROFILE(new AccountSwitcherCommand()),
@@ -31,11 +30,11 @@ public enum CommandMapping {
 
 
 
-    private Command command;
-    CommandMapping(Command instance) {
+    private ICommand command;
+    CommandFactory(ICommand instance) {
         this.command = instance;
     }
-    public Command getCommand() {
+    public ICommand getCommand() {
         return command;
     }
 }

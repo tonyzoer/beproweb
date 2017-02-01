@@ -6,7 +6,7 @@ import com.zoer.bepro.contreller.util.RequestWrapper;
 import org.apache.log4j.Logger;
 
 
-public class DefaultCommandDispatcher implements CommandDispatcher{
+public class DefaultCommandDispatcher implements ICommandDispatcher {
     private final static Logger logger = Logger.getLogger(DefaultCommandDispatcher.class);
     private static final DefaultCommandDispatcher instance = new DefaultCommandDispatcher();
     private DefaultCommandDispatcher() {
@@ -21,8 +21,7 @@ public class DefaultCommandDispatcher implements CommandDispatcher{
     public String executeRequest(RequestWrapper requestWrapper) throws InsufficientPermissionsException, NotFoundException {
         String commandName = requestWrapper.getParameter("command");
         try {
-            Command command = CommandMapping.valueOf(commandName).getCommand();
-            return command.execute(requestWrapper);
+            return CommandFactory.valueOf(commandName).getCommand().execute(requestWrapper);
         } catch (InsufficientPermissionsException ipe) {
             throw ipe;
         } catch (IllegalArgumentException | NullPointerException e) {

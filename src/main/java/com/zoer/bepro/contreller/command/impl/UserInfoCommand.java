@@ -1,6 +1,6 @@
 package com.zoer.bepro.contreller.command.impl;
 
-import com.zoer.bepro.contreller.command.Command;
+import com.zoer.bepro.contreller.command.ICommand;
 import com.zoer.bepro.contreller.exeptions.InsufficientPermissionsException;
 import com.zoer.bepro.contreller.util.RequestWrapper;
 import com.zoer.bepro.contreller.util.ViewJsp;
@@ -14,7 +14,7 @@ import com.zoer.bepro.model.services.impl.DefaultServiceFactory;
 /**
  * Created by zoer on 26.01.17.
  */
-public class UserInfoCommand implements Command {
+public class UserInfoCommand implements ICommand {
 
     @Override
     public String execute(RequestWrapper req) throws InsufficientPermissionsException, PersistException {

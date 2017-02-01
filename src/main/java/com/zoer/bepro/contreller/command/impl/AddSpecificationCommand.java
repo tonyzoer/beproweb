@@ -1,7 +1,7 @@
 package com.zoer.bepro.contreller.command.impl;
 
-import com.zoer.bepro.contreller.command.Command;
-import com.zoer.bepro.contreller.command.CommandMapping;
+import com.zoer.bepro.contreller.command.ICommand;
+import com.zoer.bepro.contreller.command.CommandFactory;
 import com.zoer.bepro.contreller.exeptions.InsufficientPermissionsException;
 import com.zoer.bepro.contreller.util.RequestWrapper;
 import com.zoer.bepro.model.dao.PersistException;
@@ -14,14 +14,14 @@ import java.util.List;
 /**
  * Created by zoer on 21.01.17.
  */
-public class AddSpecificationCommand implements Command {
+public class AddSpecificationCommand implements ICommand {
 
     @Override
     public String execute(RequestWrapper req) throws InsufficientPermissionsException, PersistException {
         User user=req.getSessionWrapper().getUser();
         String parameter = req.getParameter("item");
         if (parameter==null){
-            return CommandMapping.STUDENTPROFILE.getCommand().execute(req);
+            return CommandFactory.STUDENTPROFILE.getCommand().execute(req);
         }
         Specifications specification = DefaultServiceFactory.getInstance().getDefaultSpecificationService().getById(Integer.parseInt(parameter.split("--")[0]));
         if(DefaultServiceFactory.getInstance().getDefaultStudentProfileService().addSpecification(specification, user.getProfile().getStudentProfile().get())){
@@ -29,6 +29,6 @@ public class AddSpecificationCommand implements Command {
         studentSpecifications.add(specification);
         req.getSessionWrapper().setSdudentsSpecifications(studentSpecifications);
         }
-        return CommandMapping.STUDENTPROFILE.getCommand().execute(req);
+        return CommandFactory.STUDENTPROFILE.getCommand().execute(req);
     }
 }
