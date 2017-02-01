@@ -2,7 +2,7 @@ package com.zoer.bepro.contreller;
 
 import org.apache.log4j.*;
 import com.zoer.bepro.contreller.command.CommandDispatcher;
-import com.zoer.bepro.contreller.command.impl.DefaultCommandDispatcher;
+import com.zoer.bepro.contreller.command.DefaultCommandDispatcher;
 import com.zoer.bepro.contreller.exeptions.InsufficientPermissionsException;
 import com.zoer.bepro.contreller.exeptions.NotFoundException;
 import com.zoer.bepro.contreller.util.JspMessagesSetter;

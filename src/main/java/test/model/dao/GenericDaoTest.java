@@ -1,4 +1,4 @@
-package test;
+package test.model.dao;
 
 import com.zoer.bepro.model.dao.GenericDao;
 import com.zoer.bepro.model.dao.Identified;

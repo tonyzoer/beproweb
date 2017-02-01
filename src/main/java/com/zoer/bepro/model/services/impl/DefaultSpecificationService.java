@@ -54,16 +54,11 @@ public class DefaultSpecificationService extends GenericEntityService<Specificat
     @Override
     public Specifications insert(Specifications spec) {
         Specifications specc = null;
-        try {
-            specc = super.insert(spec);
-            specc.setCoursesList(MyCourseraApi.firstNCoursesByName(spec.getValue()));
-            for (Courses cou : specc.getCoursesList()) {
-                cou.setSpecId(specc.getId());
-                DefaultServiceFactory.getInstance().getDefaultCoursesService().insert(cou);
-
-            }
-        } catch (PersistException e) {
-            logger.debug(e);
+        specc = super.insert(spec);
+        specc.setCoursesList(MyCourseraApi.firstNCoursesByName(spec.getValue()));
+        for (Courses cou : specc.getCoursesList()) {
+            cou.setSpecId(specc.getId());
+            DefaultServiceFactory.getInstance().getDefaultCoursesService().insert(cou);
         }
         return specc;
     }

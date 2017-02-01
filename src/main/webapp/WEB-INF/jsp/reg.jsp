@@ -56,7 +56,13 @@
                         <tr>
                             <td colspan="2"><fmt:message key="alreadyreg" bundle="${bundle}"/> <a href="#log"
                                                                                                   class="btn-login"><fmt:message
-                                    key="loginhere" bundle="${bundle}"/></a></td>
+                                    key="loginhere" bundle="${bundle}"/></a>
+                                <c:if test="${not empty requestScope.error&& requestScope.error=='LOGIN_ALREADY_EXIST'}">
+                                    <div class="alert alert-danger" id="error">
+                                        <p>${requestScope.error_message}</p>
+                                    </div>
+                                </c:if><
+                            </td>
                         </tr>
                         </tbody>
                     </table>

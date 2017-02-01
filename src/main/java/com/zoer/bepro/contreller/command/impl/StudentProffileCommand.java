@@ -25,7 +25,7 @@ public class StudentProffileCommand implements Command {
             return ViewJsp.General.MAIN;
         List<Specifications> specificationsStudentList;
         specificationsStudentList = DefaultServiceFactory.getInstance().getDefaultSpecificationService().
-                getStudentsSpecifications(req.getSessionWrapper().getUser().getProfile().getStudentProfile().get().getId());
+        getStudentsSpecifications(req.getSessionWrapper().getUser().getProfile().getStudentProfile().get().getId());
         req.getSessionWrapper().setSdudentsSpecifications(specificationsStudentList);
         List<Specifications> specificationsList = DefaultServiceFactory.getInstance().getDefaultSpecificationService().findAll();
         specificationsList.removeAll(specificationsStudentList);

@@ -1,4 +1,4 @@
-package test;
+package test.model.dao;
 
 import com.zoer.bepro.model.dao.DaoFactory;
 import com.zoer.bepro.model.dao.GenericDao;
@@ -6,10 +6,8 @@ import com.zoer.bepro.model.dao.Identified;
 import com.zoer.bepro.model.dao.PersistException;
 import com.zoer.bepro.model.dao.mysqldao.MySqlDaoFactory;
 import com.zoer.bepro.model.domain.*;
-import org.junit.After;
 import org.junit.Before;
 import org.junit.runners.Parameterized;
-import test.GenericDaoTest;
 
 import java.sql.Connection;
 import java.sql.SQLException;
